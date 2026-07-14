@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StatsHub - Plataforma de Análise de Futebol</title>
+  <meta name="description" content="Estatísticas avançadas, scanner ao vivo com gráfico de pressão, robôs de alerta e IA para análise. Tome decisões mais inteligentes e encontre oportunidades em segundos.">
+  <meta name="theme-color" content="#111111">
+  <link rel="canonical" href="https://statshub.com.br/">
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="StatsHub">
+  <meta property="og:title" content="StatsHub - Plataforma de Análise de Futebol">
+  <meta property="og:description" content="Estatísticas avançadas, scanner ao vivo com gráfico de pressão, robôs de alerta e IA para análise. Tome decisões mais inteligentes e encontre oportunidades em segundos.">
+  <meta property="og:image" content="https://statshub.com.br/assets/shots/jogos-do-dia.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- A fonte mora aqui dentro (não no Google): uma ida e volta a menos antes de
+       o texto poder ser desenhado. O font-display swap deixa o texto aparecer
+       na hora, na fonte do sistema, e trocar sozinho quando a Inter chega. -->
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-latin.woff2" crossorigin>
+
+  <!-- A imagem do topo começa a baixar junto com o HTML. -->
+  <link rel="preload" as="image" href="assets/shots/jogos-do-dia-900.webp"
+        imagesrcset="assets/shots/jogos-do-dia-640.webp 640w, assets/shots/jogos-do-dia-900.webp 900w, assets/shots/jogos-do-dia-1400.webp 1400w"
+        imagesizes="(max-width: 1023px) 92vw, 620px">
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"StatsHub","applicationCategory":"SportsApplication","operatingSystem":"Web","description":"Plataforma de análise de futebol com estatísticas completas, scanner ao vivo, robôs de alerta e IA.","offers":[{"@type":"Offer","name":"Plano PRO","price":"49.00","priceCurrency":"BRL","url":"https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=066E13A"},{"@type":"Offer","name":"Plano ELITE","price":"79.00","priceCurrency":"BRL","url":"https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=ZOR9Y1P"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Como funciona a StatsHub?","acceptedAnswer":{"@type":"Answer","text":"Você entra pelo navegador e já vê os jogos do dia, com as estatísticas completas de cada time e de cada jogador. A partir daí, usa o que precisar: o scanner ao vivo para acompanhar a pressão da partida, os robôs para ser avisado no Telegram quando um jogo bater a sua estratégia, e o James para montar o bilhete. Tudo na mesma tela."}},{"@type":"Question","name":"Qual é a diferença entre o Pro e o Elite?","acceptedAnswer":{"@type":"Answer","text":"O Pro dá acesso às estatísticas completas de times e jogadores, ao scanner ao vivo com dados de pressão e à seleção de ligas. O Elite tem tudo isso e ainda libera a análise com IA, o James, o Zeus e a criação de robôs personalizados. Se você quer automatizar a sua estratégia, o Elite é o plano."}},{"@type":"Question","name":"Tem período de teste gratuito?","acceptedAnswer":{"@type":"Answer","text":"Tem. Você consegue conhecer a plataforma antes de assinar, para ver na prática como funcionam o scanner, as estatísticas e os alertas."}},{"@type":"Question","name":"Quando eu recebo o acesso?","acceptedAnswer":{"@type":"Answer","text":"Assim que o pagamento é confirmado, normalmente em menos de um minuto. Você recebe os dados de acesso por e-mail e já pode entrar."}},{"@type":"Question","name":"Posso cancelar quando quiser?","acceptedAnswer":{"@type":"Answer","text":"Pode. Não existe fidelidade nem multa. Você cancela a renovação pelo próprio painel e continua usando a plataforma até o fim do período que já pagou."}},{"@type":"Question","name":"Preciso instalar alguma coisa? Funciona no celular?","acceptedAnswer":{"@type":"Answer","text":"Não precisa instalar nada. A StatsHub roda direto no navegador, no computador ou no celular. Basta entrar com o seu login. Os alertas dos robôs chegam no Telegram."}},{"@type":"Question","name":"As atualizações são cobradas à parte?","acceptedAnswer":{"@type":"Answer","text":"Não. Todo recurso novo entra automaticamente na sua conta, sem custo adicional, enquanto a assinatura estiver ativa."}},{"@type":"Question","name":"Tem suporte?","acceptedAnswer":{"@type":"Answer","text":"Tem. Os dois planos contam com suporte, e o Elite tem atendimento prioritário. Você também entra no grupo da comunidade StatsHub, onde tiramos dúvidas e trocamos leituras de jogos."}}]}</script>
+</head>
+
+<body>
+  <!-- Os 25 ícones, definidos uma única vez. Cada uso é um <use>, não uma cópia. -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-log-in" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="m10 17 5-5-5-5" />
+  <path d="M15 12H3" />
+  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /></symbol><symbol id="i-arrow-right" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" /></symbol><symbol id="i-check" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M20 6 9 17l-5-5" /></symbol><symbol id="i-gift" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M12 7v14" />
+  <path d="M20 11v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" />
+  <path d="M7.5 7a1 1 0 0 1 0-5A4.8 8 0 0 1 12 7a4.8 8 0 0 1 4.5-5 1 1 0 0 1 0 5" />
+  <rect x="3" y="7" width="18" height="4" rx="1" /></symbol><symbol id="i-calendar-days" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M8 2v4" />
+  <path d="M16 2v4" />
+  <rect width="18" height="18" x="3" y="4" rx="2" />
+  <path d="M3 10h18" />
+  <path d="M8 14h.01" />
+  <path d="M12 14h.01" />
+  <path d="M16 14h.01" />
+  <path d="M8 18h.01" />
+  <path d="M12 18h.01" />
+  <path d="M16 18h.01" /></symbol><symbol id="i-radar" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34" />
+  <path d="M4 6h.01" />
+  <path d="M2.29 9.62A10 10 0 1 0 21.31 8.35" />
+  <path d="M16.24 7.76A6 6 0 1 0 8.23 16.67" />
+  <path d="M12 18h.01" />
+  <path d="M17.99 11.66A6 6 0 0 1 15.77 16.67" />
+  <circle cx="12" cy="12" r="2" />
+  <path d="m13.41 10.59 5.66-5.66" /></symbol><symbol id="i-trending-up" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M16 7h6v6" />
+  <path d="m22 7-8.5 8.5-5-5L2 17" /></symbol><symbol id="i-bot" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M12 8V4H8" />
+  <rect width="16" height="12" x="4" y="8" rx="2" />
+  <path d="M2 14h2" />
+  <path d="M20 14h2" />
+  <path d="M15 13v2" />
+  <path d="M9 13v2" /></symbol><symbol id="i-ticket" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+  <path d="M13 5v2" />
+  <path d="M13 17v2" />
+  <path d="M13 11v2" /></symbol><symbol id="i-send" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+  <path d="m21.854 2.147-10.94 10.939" /></symbol><symbol id="i-brain-circuit" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+  <path d="M9 13a4.5 4.5 0 0 0 3-4" />
+  <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" />
+  <path d="M3.477 10.896a4 4 0 0 1 .585-.396" />
+  <path d="M6 18a4 4 0 0 1-1.967-.516" />
+  <path d="M12 13h4" />
+  <path d="M12 18h6a2 2 0 0 1 2 2v1" />
+  <path d="M12 8h8" />
+  <path d="M16 8V5a2 2 0 0 1 2-2" />
+  <circle cx="16" cy="13" r=".5" />
+  <circle cx="18" cy="3" r=".5" />
+  <circle cx="20" cy="21" r=".5" />
+  <circle cx="20" cy="8" r=".5" /></symbol><symbol id="i-chart-column" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+  <path d="M18 17V9" />
+  <path d="M13 17V5" />
+  <path d="M8 17v-3" /></symbol><symbol id="i-activity" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" /></symbol><symbol id="i-filter" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" /></symbol><symbol id="i-chart-line" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+  <path d="m19 9-5 5-4-4-3 3" /></symbol><symbol id="i-target" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <circle cx="12" cy="12" r="10" />
+  <circle cx="12" cy="12" r="6" />
+  <circle cx="12" cy="12" r="2" /></symbol><symbol id="i-layout-dashboard" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <rect width="7" height="9" x="3" y="3" rx="1" />
+  <rect width="7" height="5" x="14" y="3" rx="1" />
+  <rect width="7" height="9" x="14" y="12" rx="1" />
+  <rect width="7" height="5" x="3" y="16" rx="1" /></symbol><symbol id="i-bell" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M10.268 21a2 2 0 0 0 3.464 0" />
+  <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" /></symbol><symbol id="i-x" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></symbol><symbol id="i-quote" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+  <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /></symbol><symbol id="i-star" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol><symbol id="i-shield-check" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+  <path d="m9 12 2 2 4-4" /></symbol><symbol id="i-plus" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M5 12h14" />
+  <path d="M12 5v14" /></symbol><symbol id="i-arrow-up-right" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" /></symbol><symbol id="i-headset" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+
+  <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z" />
+  <path d="M21 16v2a4 4 0 0 1-4 4h-5" /></symbol></svg>
+
+  <!-- Sentinela: quando ele sai da tela, a navbar ganha fundo.
+       Custa zero, diferente de um listener de scroll. -->
+  <div id="sentinela" style="position:absolute;top:0;height:1px;width:1px"></div>
+
+    <header class="nav">
+      <nav class="wrap nav-in">
+        <a class="nav-logo" href="#top" aria-label="StatsHub, ir para o início">
+          <img src="assets/logo.png" width="296" height="50" alt="StatsHub" fetchpriority="high">
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#recursos">Recursos</a></li>
+          <li><a href="#como-funciona">Como Funciona</a></li>
+          <li><a href="#planos">Planos</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+
+        <div class="nav-cta">
+          <a class="btn btn-ghost" href="https://app.statshub.com.br/login" target="_blank" rel="noopener noreferrer">
+            <svg class="ico " aria-hidden="true"><use href="#i-log-in"></use></svg>Entrar
+          </a>
+          <a class="btn btn-primary" href="#planos">
+            <span class="only-sm">Começar</span><span class="only-lg">Começar Agora</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+  <main>
+
+    <section id="top" class="hero">
+      <div class="hero-bg">
+        <div class="hero-grid"></div>
+        <div class="hero-fade"></div>
+        <div class="glow hero-glow-a"></div>
+        <div class="glow hero-glow-b"></div>
+      </div>
+
+      <div class="wrap hero-in">
+        <div class="hero-txt">
+          <h1 class="h1 a-rise">
+            <span class="grad-white">A Plataforma Definitiva para</span>
+            <span class="grad-brand">Análise de Futebol</span>
+          </h1>
+          <p class="lead a-rise d1">
+            Estatísticas de times e jogadores completas, com scanner ao vivo com gráfico
+            e índices de pressão, robôs que alertam no Telegram facilitando ainda mais
+            para você.
+          </p>
+        </div>
+
+        <div class="hero-shot a-pop d2">
+          <div class="float"><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/jogos</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/jogos-do-dia-640.webp 640w, assets/shots/jogos-do-dia-900.webp 900w, assets/shots/jogos-do-dia-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/jogos-do-dia.jpg" width="2262" height="1266"
+                   alt="StatsHub: jogos-do-dia" fetchpriority="high">
+            </picture>
+            </div>
+          </div></div>
+          <div class="hero-shot-reflex"></div>
+        </div>
+
+        <div class="hero-act">
+          <div class="hero-btns a-rise d2">
+            <a class="btn btn-lg btn-primary btn-glow" href="https://app.statshub.com.br/login" target="_blank" rel="noopener noreferrer">
+              Começar Agora <svg class="ico " aria-hidden="true"><use href="#i-arrow-right"></use></svg>
+            </a>
+            <a class="btn btn-lg btn-ghost" href="#planos">Conhecer os Planos</a>
+          </div>
+
+          <p class="trial a-rise d3"><svg class="ico " aria-hidden="true"><use href="#i-gift"></use></svg>Período de teste gratuito</p>
+
+          <ul class="checks a-rise d4">
+            <li>
+              <span class="dot-check"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>
+              <span><b><span data-count="10000">0</span>+</b> análises realizadas</span>
+            </li>
+            <li><span class="dot-check"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span><span>Estatísticas em tempo real</span></li>
+            <li><span class="dot-check"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span><span>Dados confiáveis</span></li>
+            <li><span class="dot-check"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span><span>Interface profissional</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mq" aria-label="O que a StatsHub entrega">
+      <ul class="sr-only">
+        <li>Jogos do dia</li>
+        <li>Scanner ao vivo</li>
+        <li>Gráfico de pressão</li>
+        <li>Robôs personalizados</li>
+        <li>Criador inteligente de bilhetes</li>
+        <li>Alertas no Telegram</li>
+        <li>Análise com IA</li>
+        <li>Estatísticas de times e jogadores</li>
+        <li>Entradas prontas</li>
+        <li>Dados em tempo real</li>
+      </ul>
+      <div class="mq-view">
+        <div class="mq-track">
+          <ul class="mq-row" aria-hidden="true">
+            <li>
+              <span class="mq-ico" style="color:#FF6A00;border-color:#FF6A0059;background:#FF6A001a"><svg class="ico " aria-hidden="true"><use href="#i-calendar-days"></use></svg></span>
+              <span>Jogos do dia</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#EF4444;border-color:#EF444459;background:#EF44441a"><svg class="ico " aria-hidden="true"><use href="#i-radar"></use></svg></span>
+              <span>Scanner ao vivo</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#22C55E;border-color:#22C55E59;background:#22C55E1a"><svg class="ico " aria-hidden="true"><use href="#i-trending-up"></use></svg></span>
+              <span>Gráfico de pressão</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#8B5CF6;border-color:#8B5CF659;background:#8B5CF61a"><svg class="ico " aria-hidden="true"><use href="#i-bot"></use></svg></span>
+              <span>Robôs personalizados</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#F59E0B;border-color:#F59E0B59;background:#F59E0B1a"><svg class="ico " aria-hidden="true"><use href="#i-ticket"></use></svg></span>
+              <span>Criador inteligente de bilhetes</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#38BDF8;border-color:#38BDF859;background:#38BDF81a"><svg class="ico " aria-hidden="true"><use href="#i-send"></use></svg></span>
+              <span>Alertas no Telegram</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#06B6D4;border-color:#06B6D459;background:#06B6D41a"><svg class="ico " aria-hidden="true"><use href="#i-brain-circuit"></use></svg></span>
+              <span>Análise com IA</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#3B82F6;border-color:#3B82F659;background:#3B82F61a"><svg class="ico " aria-hidden="true"><use href="#i-chart-column"></use></svg></span>
+              <span>Estatísticas de times e jogadores</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#EC4899;border-color:#EC489959;background:#EC48991a"><svg class="ico " aria-hidden="true"><use href="#i-zap"></use></svg></span>
+              <span>Entradas prontas</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#14B8A6;border-color:#14B8A659;background:#14B8A61a"><svg class="ico " aria-hidden="true"><use href="#i-activity"></use></svg></span>
+              <span>Dados em tempo real</span>
+              <i class="mq-sep"></i>
+            </li>
+          </ul>
+          <ul class="mq-row" aria-hidden="true">
+            <li>
+              <span class="mq-ico" style="color:#FF6A00;border-color:#FF6A0059;background:#FF6A001a"><svg class="ico " aria-hidden="true"><use href="#i-calendar-days"></use></svg></span>
+              <span>Jogos do dia</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#EF4444;border-color:#EF444459;background:#EF44441a"><svg class="ico " aria-hidden="true"><use href="#i-radar"></use></svg></span>
+              <span>Scanner ao vivo</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#22C55E;border-color:#22C55E59;background:#22C55E1a"><svg class="ico " aria-hidden="true"><use href="#i-trending-up"></use></svg></span>
+              <span>Gráfico de pressão</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#8B5CF6;border-color:#8B5CF659;background:#8B5CF61a"><svg class="ico " aria-hidden="true"><use href="#i-bot"></use></svg></span>
+              <span>Robôs personalizados</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#F59E0B;border-color:#F59E0B59;background:#F59E0B1a"><svg class="ico " aria-hidden="true"><use href="#i-ticket"></use></svg></span>
+              <span>Criador inteligente de bilhetes</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#38BDF8;border-color:#38BDF859;background:#38BDF81a"><svg class="ico " aria-hidden="true"><use href="#i-send"></use></svg></span>
+              <span>Alertas no Telegram</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#06B6D4;border-color:#06B6D459;background:#06B6D41a"><svg class="ico " aria-hidden="true"><use href="#i-brain-circuit"></use></svg></span>
+              <span>Análise com IA</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#3B82F6;border-color:#3B82F659;background:#3B82F61a"><svg class="ico " aria-hidden="true"><use href="#i-chart-column"></use></svg></span>
+              <span>Estatísticas de times e jogadores</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#EC4899;border-color:#EC489959;background:#EC48991a"><svg class="ico " aria-hidden="true"><use href="#i-zap"></use></svg></span>
+              <span>Entradas prontas</span>
+              <i class="mq-sep"></i>
+            </li>
+            <li>
+              <span class="mq-ico" style="color:#14B8A6;border-color:#14B8A659;background:#14B8A61a"><svg class="ico " aria-hidden="true"><use href="#i-activity"></use></svg></span>
+              <span>Dados em tempo real</span>
+              <i class="mq-sep"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="recursos" class="pad">
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2 rv rv-up">Tudo que você precisa em uma única plataforma</h2>
+          <p class="lead rv rv-up" style="transition-delay:80ms">
+            Estatísticas, scanner ao vivo, robôs de alerta e montagem de bilhete.
+            Você abre a StatsHub e já tem tudo pronto para analisar.
+          </p>
+        </div>
+
+        <div class="grid-4">
+          <article class="card rv rv-up" style="transition-delay:0ms">
+            <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-calendar-days"></use></svg></span>
+            <h3>Jogos do Dia</h3>
+            <p>Todos os jogos organizados por campeonatos, com odds, horários e status atualizados em tempo real.</p>
+          </article>
+          <article class="card rv rv-up" style="transition-delay:80ms">
+            <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-activity"></use></svg></span>
+            <h3>Scanner Live</h3>
+            <p>Detecta oportunidades ao vivo utilizando dezenas de métricas de pressão, ataques perigosos e finalizações.</p>
+          </article>
+          <article class="card rv rv-up" style="transition-delay:160ms">
+            <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-bot"></use></svg></span>
+            <h3>Criação de Robôs</h3>
+            <p>Transforme sua estratégia em condições e receba o alerta no Telegram assim que um jogo bater os critérios, ao vivo ou no pré-live.</p>
+          </article>
+          <article class="card rv rv-up" style="transition-delay:240ms">
+            <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-filter"></use></svg></span>
+            <h3>Filtros Inteligentes</h3>
+            <p>Encontre jogos específicos em segundos combinando liga, horário, odds e dezenas de critérios.</p>
+          </article>
+          <article class="card rv rv-up" style="transition-delay:0ms">
+            <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-chart-column"></use></svg></span>
+            <h3>Estatísticas Avançadas</h3>
+            <p>Dados completos das equipes: forma, médias, escanteios, H2H, escalações e tendências recentes.</p>
+          </article>
+          <article class="card rv rv-up" style="transition-delay:80ms">
+            <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-chart-line"></use></svg></span>
+            <h3>Análise por Liga</h3>
+            <p>Visualização completa por campeonato, com tabelas, padrões e comportamento de cada competição.</p>
+          </article>
+          <article class="card rv rv-up" style="transition-delay:160ms">
+            <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-target"></use></svg></span>
+            <h3>Indicadores de Valor</h3>
+            <p>Encontre odds interessantes comparando a probabilidade real com o preço oferecido pelo mercado.</p>
+          </article>
+          <article class="card rv rv-up" style="transition-delay:240ms">
+            <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-layout-dashboard"></use></svg></span>
+            <h3>Painel Inteligente</h3>
+            <p>Jogos, estatísticas, scanner e bilhete na mesma tela, sem ficar trocando de aba.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="demonstracao" class="pad band">
+      <div class="glow" style="top:33%;left:-160px;width:420px;height:420px;background:radial-gradient(closest-side,rgba(255,106,0,.11),transparent)"></div>
+
+      <div class="wrap split">
+        <div class="split-img rv rv-left"><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/jogos</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/jogos-do-dia-640.webp 640w, assets/shots/jogos-do-dia-900.webp 900w, assets/shots/jogos-do-dia-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/jogos-do-dia.jpg" width="2262" height="1266"
+                   alt="StatsHub: jogos-do-dia" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+
+        <div class="split-txt">
+          <h2 class="h2 rv rv-right">Interface moderna feita para velocidade</h2>
+          <p class="lead rv rv-right" style="transition-delay:80ms">
+            Cada detalhe da StatsHub foi desenhado para reduzir cliques e entregar a
+            informação certa no momento exato da decisão.
+          </p>
+
+          <ul class="pills">
+            <li class="rv rv-up" style="transition-delay:0ms">
+              <span class="pill-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Navegação rápida
+            </li>
+            <li class="rv rv-up" style="transition-delay:70ms">
+              <span class="pill-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Visual limpo
+            </li>
+            <li class="rv rv-up" style="transition-delay:140ms">
+              <span class="pill-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Todas as ligas
+            </li>
+            <li class="rv rv-up" style="transition-delay:210ms">
+              <span class="pill-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Atualização em tempo real
+            </li>
+            <li class="rv rv-up" style="transition-delay:280ms">
+              <span class="pill-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Filtros profissionais
+            </li>
+            <li class="rv rv-up" style="transition-delay:350ms">
+              <span class="pill-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Interface intuitiva
+            </li>
+          </ul>
+
+          <div class="rv rv-up" style="transition-delay:140ms;margin-top:36px">
+            <a class="btn btn-lg btn-primary" href="#planos">Conhecer os Planos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modulos" class="pad">
+      <div class="glow" style="top:25%;left:0;right:0;height:500px;background:radial-gradient(60% 60% at 50% 0%,rgba(255,106,0,.16),transparent 70%)"></div>
+
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2 rv rv-up">Várias ferramentas. Uma plataforma.</h2>
+          <p class="lead rv rv-up" style="transition-delay:80ms">
+            Cada ferramenta cobre um momento diferente do seu dia. Escolher os jogos,
+            acompanhar ao vivo, receber os alertas e fechar o bilhete.
+          </p>
+        </div>
+
+        <div class="mods">
+          <div class="mods-txt">
+            <div class="mod-block" data-mod="0">
+              <div class="rv rv-right">
+                <h3 class="h3">Analise os jogos do dia em um só lugar</h3>
+                <p class="lead">Todas as partidas organizadas por país e campeonato, com odds, favoritos e um painel de análise completo ao lado, sem abrir dez abas.</p>
+                <ul class="bullets">
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Visão geral, estatísticas, probabilidades e H2H</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Escalações, tabela e desempenho dos jogadores</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Leitura rápida da forma recente das duas equipes</li>
+                </ul>
+              </div>
+              <div class="mod-shot-inline"><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/jogos</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/jogos-do-dia-640.webp 640w, assets/shots/jogos-do-dia-900.webp 900w, assets/shots/jogos-do-dia-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/jogos-do-dia.jpg" width="2262" height="1266"
+                   alt="StatsHub: jogos-do-dia" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+            </div>
+            <div class="mod-block" data-mod="1">
+              <div class="rv rv-right">
+                <h3 class="h3">Scanner Ao Vivo com gráfico de pressão</h3>
+                <p class="lead">Enxergue quem realmente está dominando a partida. Gráfico de pressão, índices de pressão de cada equipe, podendo medir os últimos 5 ou 10 minutos.</p>
+                <ul class="bullets">
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Pressão em janelas de 5 e 10 minutos</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Ataques perigosos, chutes e domínio atual</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Atualização contínua durante o jogo</li>
+                </ul>
+              </div>
+              <div class="mod-shot-inline"><div class="shot shot-narrow">
+            <div class="frame-bare"><picture>
+              <source type="image/webp" srcset="assets/shots/scanner-ao-vivo-360.webp 360w, assets/shots/scanner-ao-vivo-560.webp 560w, assets/shots/scanner-ao-vivo-900.webp 900w" sizes="(max-width: 1023px) 90vw, 320px">
+              <img src="assets/shots/scanner-ao-vivo.jpg" width="571" height="908"
+                   alt="StatsHub: scanner-ao-vivo" loading="lazy" decoding="async">
+            </picture></div>
+          </div></div>
+            </div>
+            <div class="mod-block" data-mod="2">
+              <div class="rv rv-right">
+                <h3 class="h3">Monte robôs e receba alertas automáticos</h3>
+                <p class="lead">Transforme sua estratégia em condições. Quando um jogo bater os critérios, o robô te avisa no Telegram, ao vivo ou no pré-live.</p>
+                <ul class="bullets">
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Condições combináveis por estratégia</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Modos Ao Vivo e Pré-Live</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Alertas instantâneos no Telegram</li>
+                </ul>
+              </div>
+              <div class="mod-shot-inline"><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/robos</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/robos-640.webp 640w, assets/shots/robos-900.webp 900w, assets/shots/robos-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/robos.jpg" width="2274" height="1263"
+                   alt="StatsHub: robos" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+            </div>
+            <div class="mod-block" data-mod="3">
+              <div class="rv rv-right">
+                <h3 class="h3">James, o montador inteligente de bilhetes</h3>
+                <p class="lead">Escolha o tipo de bilhete, a faixa de odd e os mercados. O James lê os cenários do dia e monta a combinação com o melhor equilíbrio.</p>
+                <ul class="bullets">
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Probabilidade e edge calculados por seleção</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Justificativa em texto para cada escolha</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Regenere o bilhete quantas vezes quiser</li>
+                </ul>
+              </div>
+              <div class="mod-shot-inline"><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/james</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/james-640.webp 640w, assets/shots/james-900.webp 900w, assets/shots/james-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/james.jpg" width="2259" height="1269"
+                   alt="StatsHub: james" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+            </div>
+            <div class="mod-block" data-mod="4">
+              <div class="rv rv-right">
+                <h3 class="h3">Zeus encontra entradas prontas para você</h3>
+                <p class="lead">Da entrada mais segura à alavancagem, o Zeus recomenda o caminho de acordo com o seu perfil, o seu stake médio e a sua meta.</p>
+                <ul class="bullets">
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Entrada mais segura, alavancagem ou bingão</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Modo “resolva por mim” com a melhor opção do momento</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Acompanhamento da sua evolução</li>
+                </ul>
+              </div>
+              <div class="mod-shot-inline"><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/zeus</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/zeus-640.webp 640w, assets/shots/zeus-900.webp 900w, assets/shots/zeus-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/zeus.jpg" width="2273" height="1263"
+                   alt="StatsHub: zeus" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+            </div>
+          </div>
+
+          <div class="mods-media">
+            <div class="mods-dots">
+              <i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i>
+            </div>
+            <div class="mods-stack">
+              <div class="on"><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/jogos</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/jogos-do-dia-640.webp 640w, assets/shots/jogos-do-dia-900.webp 900w, assets/shots/jogos-do-dia-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/jogos-do-dia.jpg" width="2262" height="1266"
+                   alt="StatsHub: jogos-do-dia" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+              <div class=""><div class="shot shot-narrow">
+            <div class="frame-bare"><picture>
+              <source type="image/webp" srcset="assets/shots/scanner-ao-vivo-360.webp 360w, assets/shots/scanner-ao-vivo-560.webp 560w, assets/shots/scanner-ao-vivo-900.webp 900w" sizes="(max-width: 1023px) 90vw, 320px">
+              <img src="assets/shots/scanner-ao-vivo.jpg" width="571" height="908"
+                   alt="StatsHub: scanner-ao-vivo" loading="lazy" decoding="async">
+            </picture></div>
+          </div></div>
+              <div class=""><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/robos</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/robos-640.webp 640w, assets/shots/robos-900.webp 900w, assets/shots/robos-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/robos.jpg" width="2274" height="1263"
+                   alt="StatsHub: robos" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+              <div class=""><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/james</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/james-640.webp 640w, assets/shots/james-900.webp 900w, assets/shots/james-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/james.jpg" width="2259" height="1269"
+                   alt="StatsHub: james" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+              <div class=""><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/zeus</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/zeus-640.webp 640w, assets/shots/zeus-900.webp 900w, assets/shots/zeus-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/zeus.jpg" width="2273" height="1263"
+                   alt="StatsHub: zeus" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="pad band">
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2 rv rv-up">Do primeiro acesso à primeira oportunidade</h2>
+          <p class="lead rv rv-up" style="transition-delay:80ms">
+            Quatro passos. Nenhuma configuração complicada, nenhuma curva de aprendizado.
+          </p>
+        </div>
+
+        <div class="steps-wrap">
+          <div class="rail-v"><div class="rail-fill"></div></div>
+          <div class="rail-h"><div class="rail-fill"></div><span class="rail-dot"></span></div>
+
+          <ol class="steps">
+            <li class="step rv rv-up" style="transition-delay:0ms">
+              <span class="step-mark"><svg class="ico " aria-hidden="true"><use href="#i-ticket"></use></svg><i class="step-num">01</i></span>
+              <h3>Escolha seu plano</h3>
+              <p>Pro ou Elite, no mensal ou no trimestral. Sem burocracia e sem fidelidade.</p>
+            </li>
+            <li class="step rv rv-up" style="transition-delay:120ms">
+              <span class="step-mark"><svg class="ico " aria-hidden="true"><use href="#i-zap"></use></svg><i class="step-num">02</i></span>
+              <h3>Acesse imediatamente</h3>
+              <p>O acesso é liberado na hora, direto no navegador. Sem instalação, sem configuração.</p>
+            </li>
+            <li class="step rv rv-up" style="transition-delay:240ms">
+              <span class="step-mark"><svg class="ico " aria-hidden="true"><use href="#i-chart-column"></use></svg><i class="step-num">03</i></span>
+              <h3>Analise os jogos</h3>
+              <p>Use scanner, filtros e estatísticas avançadas para ler cada partida em segundos.</p>
+            </li>
+            <li class="step rv rv-up" style="transition-delay:360ms">
+              <span class="step-mark"><svg class="ico " aria-hidden="true"><use href="#i-target"></use></svg><i class="step-num">04</i></span>
+              <h3>Encontre oportunidades</h3>
+              <p>Identifique valor com dados reais e entre com confiança, não com achismo.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="diferenciais" class="pad band">
+      <div class="glow" style="top:25%;right:0;width:400px;height:400px;background:radial-gradient(closest-side,rgba(255,106,0,.1),transparent)"></div>
+
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2 rv rv-up">StatsHub vs. métodos tradicionais</h2>
+          <p class="lead rv rv-up" style="transition-delay:80ms">
+            A diferença não está em ter os dados. Está em quanto tempo você leva para
+            transformá-los em decisão.
+          </p>
+        </div>
+
+        <div class="cmp rv rv-up">
+          <div class="cmp-head">
+            <span class="cmp-label">Critério</span>
+            <div class="cmp-us"><img src="assets/logo.png" width="296" height="50" alt="StatsHub" loading="lazy"></div>
+            <span class="cmp-vs">VS</span>
+            <div class="cmp-them">Método tradicional</div>
+          </div>
+
+          <ul>
+            <li class="cmp-row">
+              <div class="cmp-crit"><span class="cmp-crit-ico"><svg class="ico " aria-hidden="true"><use href="#i-calendar-days"></use></svg></span>Jogos do dia</div>
+              <div class="cmp-yes"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Organizados por liga, com odds</div>
+              <div class="cmp-no"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg></span>Abrindo site por site</div>
+            </li>
+            <li class="cmp-row">
+              <div class="cmp-crit"><span class="cmp-crit-ico"><svg class="ico " aria-hidden="true"><use href="#i-chart-column"></use></svg></span>Estatísticas</div>
+              <div class="cmp-yes"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Times e jogadores, completas</div>
+              <div class="cmp-no"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg></span>Espalhadas em várias fontes</div>
+            </li>
+            <li class="cmp-row">
+              <div class="cmp-crit"><span class="cmp-crit-ico"><svg class="ico " aria-hidden="true"><use href="#i-activity"></use></svg></span>Leitura do jogo ao vivo</div>
+              <div class="cmp-yes"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Gráfico e índices de pressão</div>
+              <div class="cmp-no"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg></span>Só o placar e o palpite</div>
+            </li>
+            <li class="cmp-row">
+              <div class="cmp-crit"><span class="cmp-crit-ico"><svg class="ico " aria-hidden="true"><use href="#i-bell"></use></svg></span>Alerta de oportunidade</div>
+              <div class="cmp-yes"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Robôs avisam no Telegram</div>
+              <div class="cmp-no"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg></span>Você precisa ficar na tela</div>
+            </li>
+            <li class="cmp-row">
+              <div class="cmp-crit"><span class="cmp-crit-ico"><svg class="ico " aria-hidden="true"><use href="#i-ticket"></use></svg></span>Montagem do bilhete</div>
+              <div class="cmp-yes"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>O James monta e explica cada escolha</div>
+              <div class="cmp-no"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg></span>Feita no achismo</div>
+            </li>
+            <li class="cmp-row">
+              <div class="cmp-crit"><span class="cmp-crit-ico"><svg class="ico " aria-hidden="true"><use href="#i-zap"></use></svg></span>Entradas prontas</div>
+              <div class="cmp-yes"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>O Zeus sugere conforme o seu perfil</div>
+              <div class="cmp-no"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg></span>Você garimpa sozinho</div>
+            </li>
+            <li class="cmp-row">
+              <div class="cmp-crit"><span class="cmp-crit-ico"><svg class="ico " aria-hidden="true"><use href="#i-brain-circuit"></use></svg></span>Análise com IA</div>
+              <div class="cmp-yes"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Incluída no plano Elite</div>
+              <div class="cmp-no"><span class="cmp-mark"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg></span>Não existe</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="pad">
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2 rv rv-up">Feedback de quem usa de verdade</h2>
+          <p class="lead rv rv-up" style="transition-delay:80ms">
+            Apostadores que utilizam a StatsHub no dia a dia e contaram o que mudou na
+            análise deles.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <figure class="quote rv rv-up" style="transition-delay:0ms">
+            <svg class="ico " aria-hidden="true"><use href="#i-quote"></use></svg>
+            <blockquote>“Antes eu levava muito tempo para analisar um jogo só. Com o scanner e as estatísticas na mesma tela, faço a leitura em poucos minutos e com bem mais segurança.”</blockquote>
+            <div class="quote-foot">
+              <span class="avatar">RA</span>
+              <figcaption>Rafael Andrade</figcaption>
+              <span class="stars" aria-label="Avaliação 5 de 5">
+                <svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg>
+              </span>
+            </div>
+          </figure>
+          <figure class="quote rv rv-up" style="transition-delay:80ms">
+            <svg class="ico " aria-hidden="true"><use href="#i-quote"></use></svg>
+            <blockquote>“Os robôs mudaram a minha rotina. Configuro as condições da minha estratégia e recebo o alerta no Telegram, sem precisar acompanhar a tela o dia inteiro.”</blockquote>
+            <div class="quote-foot">
+              <span class="avatar">DM</span>
+              <figcaption>Diego Martins</figcaption>
+              <span class="stars" aria-label="Avaliação 5 de 5">
+                <svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg>
+              </span>
+            </div>
+          </figure>
+          <figure class="quote rv rv-up" style="transition-delay:160ms">
+            <svg class="ico " aria-hidden="true"><use href="#i-quote"></use></svg>
+            <blockquote>“O gráfico de pressão mostra o domínio da partida antes de o placar mudar. É exatamente a informação que eu não conseguia enxergar sozinho.”</blockquote>
+            <div class="quote-foot">
+              <span class="avatar">BC</span>
+              <figcaption>Bruno Carvalho</figcaption>
+              <span class="stars" aria-label="Avaliação 5 de 5">
+                <svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg>
+              </span>
+            </div>
+          </figure>
+          <figure class="quote rv rv-up" style="transition-delay:0ms">
+            <svg class="ico " aria-hidden="true"><use href="#i-quote"></use></svg>
+            <blockquote>“Ter os jogos, as odds e o histórico dos times organizados em um lugar só deixou minha análise muito mais consistente. Uso a plataforma todos os dias.”</blockquote>
+            <div class="quote-foot">
+              <span class="avatar">LF</span>
+              <figcaption>Lucas Ferreira</figcaption>
+              <span class="stars" aria-label="Avaliação 5 de 5">
+                <svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg>
+              </span>
+            </div>
+          </figure>
+          <figure class="quote rv rv-up" style="transition-delay:80ms">
+            <svg class="ico " aria-hidden="true"><use href="#i-quote"></use></svg>
+            <blockquote>“O James me ajuda quando o tempo está curto. Ele lê os cenários do dia e monta o bilhete mostrando o motivo de cada escolha, o que me dá confiança na entrada.”</blockquote>
+            <div class="quote-foot">
+              <span class="avatar">AN</span>
+              <figcaption>André Nogueira</figcaption>
+              <span class="stars" aria-label="Avaliação 5 de 5">
+                <svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg>
+              </span>
+            </div>
+          </figure>
+          <figure class="quote rv rv-up" style="transition-delay:160ms">
+            <svg class="ico " aria-hidden="true"><use href="#i-quote"></use></svg>
+            <blockquote>“O que mais me ajudou foi parar de decidir no achismo. Hoje eu olho os números da partida antes de entrar e sei exatamente por que estou entrando.”</blockquote>
+            <div class="quote-foot">
+              <span class="avatar">TR</span>
+              <figcaption>Thiago Ramos</figcaption>
+              <span class="stars" aria-label="Avaliação 5 de 5">
+                <svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg>
+              </span>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="cta-box rv rv-scale">
+        <h2>Pronto para elevar o nível das suas análises?</h2>
+        <p>
+          Comece hoje e transforme dados em decisões. Acesso imediato, sem fidelidade e
+          com todas as ferramentas liberadas.
+        </p>
+        <a class="btn btn-xl btn-light" href="#planos">Quero Assinar Agora <svg class="ico " aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
+        <p class="cta-note">Acesso liberado em menos de 1 minuto · Cancele quando quiser</p>
+      </div>
+    </section>
+
+    <section id="planos" class="pad band">
+      <div class="glow" style="top:0;left:50%;width:900px;height:500px;margin-left:-450px;background:radial-gradient(closest-side,rgba(255,106,0,.14),transparent)"></div>
+
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2 rv rv-up">Escolha o plano e comece agora</h2>
+          <p class="lead rv rv-up" style="transition-delay:80ms">
+            Os dois planos dão acesso à plataforma. O Elite libera a IA, o James, o Zeus
+            e a criação de robôs.
+          </p>
+        </div>
+
+        <div class="toggle-wrap rv rv-up">
+          <span class="toggle-lbl">Escolha o período do plano</span>
+          <div class="toggle" data-period="mensal" role="tablist" aria-label="Escolha o período do plano">
+            <span class="toggle-pill" aria-hidden="true"></span>
+            <button role="tab" data-period="mensal" aria-selected="true">Mensal</button>
+            <button role="tab" data-period="trimestral" aria-selected="false">
+              Trimestral <span class="toggle-tag">Economize</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="plans">
+          <article class="plan  rv rv-up"
+            style="transition-delay:0ms"
+            data-price-mensal="49,00" data-note-mensal="cobrança mensal" data-url-mensal="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=066E13A"
+            data-price-trimestral="45,67" data-note-trimestral="R$ 137,00 a cada 3 meses. Economize R$ 10." data-url-trimestral="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=1ZMZ5JO">
+
+            
+
+            <h3>PRO</h3>
+            <p class="plan-desc">Acesso à plataforma com estatísticas completas e scanner ao vivo.</p>
+
+            <div class="plan-price">
+              <div class="plan-price-row">
+                <span class="plan-cur">R$</span>
+                <span class="plan-int">49</span>
+                <span class="plan-dec">,00</span>
+                <span class="plan-per">/mês</span>
+              </div>
+              <p class="plan-note">cobrança mensal</p>
+            </div>
+
+            <a class="btn btn-lg btn-ghost btn-block plan-cta"
+               href="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=066E13A" target="_blank" rel="noopener noreferrer">Assinar agora</a>
+
+            <div class="plan-hr"></div>
+            <p class="plan-inc">O que está incluído</p>
+
+            <ul class="plan-feats">
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Estatísticas completas dos times</li>
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Estatísticas completas dos jogadores</li>
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Scanner ao vivo com dados de pressão</li>
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Seleção de ligas</li>
+              <li class="off"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg>Análise com I.A</li>
+              <li class="off"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg>James, criador de bilhetes inteligentes</li>
+              <li class="off"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg>Zeus, entradas prontas com sua personalização</li>
+              <li class="off"><svg class="ico " aria-hidden="true"><use href="#i-x"></use></svg>Criação de robôs personalizados</li>
+            </ul>
+          </article>
+          <article class="plan plan-top rv rv-up"
+            style="transition-delay:100ms"
+            data-price-mensal="79,00" data-note-mensal="cobrança mensal" data-url-mensal="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=ZOR9Y1P"
+            data-price-trimestral="72,33" data-note-trimestral="R$ 217,00 a cada 3 meses. Economize R$ 20." data-url-trimestral="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=JIUG42D">
+
+            <span class="plan-badge"><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg>Mais Popular</span>
+
+            <h3>ELITE</h3>
+            <p class="plan-desc">Tudo do Pro, mais IA, James, Zeus e criação de robôs.</p>
+
+            <div class="plan-price">
+              <div class="plan-price-row">
+                <span class="plan-cur">R$</span>
+                <span class="plan-int">79</span>
+                <span class="plan-dec">,00</span>
+                <span class="plan-per">/mês</span>
+              </div>
+              <p class="plan-note">cobrança mensal</p>
+            </div>
+
+            <a class="btn btn-lg btn-primary btn-glow btn-block plan-cta"
+               href="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=ZOR9Y1P" target="_blank" rel="noopener noreferrer">Assinar agora</a>
+
+            <div class="plan-hr"></div>
+            <p class="plan-inc">O que está incluído</p>
+
+            <ul class="plan-feats">
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Estatísticas completas dos times</li>
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Estatísticas completas dos jogadores</li>
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Scanner ao vivo com dados de pressão</li>
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Seleção de ligas</li>
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Análise com I.A</li>
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>James, criador de bilhetes inteligentes</li>
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Zeus, entradas prontas com sua personalização</li>
+              <li class=""><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg>Criação de robôs personalizados</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="safe rv rv-up">
+          <svg class="ico " aria-hidden="true"><use href="#i-shield-check"></use></svg>Pagamento seguro · Sem fidelidade · Cancele quando quiser
+        </p>
+      </div>
+    </section>
+
+    <section id="faq" class="pad">
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2 rv rv-up">Perguntas frequentes</h2>
+          <p class="lead rv rv-up" style="transition-delay:80ms">
+            Se ficar qualquer dúvida, é só falar com a gente. Respondemos rápido.
+          </p>
+        </div>
+
+        <div class="faq">
+          <div class="faq-item open rv rv-up" style="transition-delay:0ms">
+            <h3>
+              <button class="faq-q" aria-expanded="true" aria-controls="faq-0">
+                <span>Como funciona a StatsHub?</span>
+                <span class="faq-plus"><svg class="ico " aria-hidden="true"><use href="#i-plus"></use></svg></span>
+              </button>
+            </h3>
+            <div class="faq-a" id="faq-0" role="region">
+              <div><p>Você entra pelo navegador e já vê os jogos do dia, com as estatísticas completas de cada time e de cada jogador. A partir daí, usa o que precisar: o scanner ao vivo para acompanhar a pressão da partida, os robôs para ser avisado no Telegram quando um jogo bater a sua estratégia, e o James para montar o bilhete. Tudo na mesma tela.</p></div>
+            </div>
+          </div>
+          <div class="faq-item  rv rv-up" style="transition-delay:60ms">
+            <h3>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-1">
+                <span>Qual é a diferença entre o Pro e o Elite?</span>
+                <span class="faq-plus"><svg class="ico " aria-hidden="true"><use href="#i-plus"></use></svg></span>
+              </button>
+            </h3>
+            <div class="faq-a" id="faq-1" role="region">
+              <div><p>O Pro dá acesso às estatísticas completas de times e jogadores, ao scanner ao vivo com dados de pressão e à seleção de ligas. O Elite tem tudo isso e ainda libera a análise com IA, o James, o Zeus e a criação de robôs personalizados. Se você quer automatizar a sua estratégia, o Elite é o plano.</p></div>
+            </div>
+          </div>
+          <div class="faq-item  rv rv-up" style="transition-delay:120ms">
+            <h3>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-2">
+                <span>Tem período de teste gratuito?</span>
+                <span class="faq-plus"><svg class="ico " aria-hidden="true"><use href="#i-plus"></use></svg></span>
+              </button>
+            </h3>
+            <div class="faq-a" id="faq-2" role="region">
+              <div><p>Tem. Você consegue conhecer a plataforma antes de assinar, para ver na prática como funcionam o scanner, as estatísticas e os alertas.</p></div>
+            </div>
+          </div>
+          <div class="faq-item  rv rv-up" style="transition-delay:180ms">
+            <h3>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-3">
+                <span>Quando eu recebo o acesso?</span>
+                <span class="faq-plus"><svg class="ico " aria-hidden="true"><use href="#i-plus"></use></svg></span>
+              </button>
+            </h3>
+            <div class="faq-a" id="faq-3" role="region">
+              <div><p>Assim que o pagamento é confirmado, normalmente em menos de um minuto. Você recebe os dados de acesso por e-mail e já pode entrar.</p></div>
+            </div>
+          </div>
+          <div class="faq-item  rv rv-up" style="transition-delay:240ms">
+            <h3>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-4">
+                <span>Posso cancelar quando quiser?</span>
+                <span class="faq-plus"><svg class="ico " aria-hidden="true"><use href="#i-plus"></use></svg></span>
+              </button>
+            </h3>
+            <div class="faq-a" id="faq-4" role="region">
+              <div><p>Pode. Não existe fidelidade nem multa. Você cancela a renovação pelo próprio painel e continua usando a plataforma até o fim do período que já pagou.</p></div>
+            </div>
+          </div>
+          <div class="faq-item  rv rv-up" style="transition-delay:300ms">
+            <h3>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-5">
+                <span>Preciso instalar alguma coisa? Funciona no celular?</span>
+                <span class="faq-plus"><svg class="ico " aria-hidden="true"><use href="#i-plus"></use></svg></span>
+              </button>
+            </h3>
+            <div class="faq-a" id="faq-5" role="region">
+              <div><p>Não precisa instalar nada. A StatsHub roda direto no navegador, no computador ou no celular. Basta entrar com o seu login. Os alertas dos robôs chegam no Telegram.</p></div>
+            </div>
+          </div>
+          <div class="faq-item  rv rv-up" style="transition-delay:360ms">
+            <h3>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-6">
+                <span>As atualizações são cobradas à parte?</span>
+                <span class="faq-plus"><svg class="ico " aria-hidden="true"><use href="#i-plus"></use></svg></span>
+              </button>
+            </h3>
+            <div class="faq-a" id="faq-6" role="region">
+              <div><p>Não. Todo recurso novo entra automaticamente na sua conta, sem custo adicional, enquanto a assinatura estiver ativa.</p></div>
+            </div>
+          </div>
+          <div class="faq-item  rv rv-up" style="transition-delay:420ms">
+            <h3>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-7">
+                <span>Tem suporte?</span>
+                <span class="faq-plus"><svg class="ico " aria-hidden="true"><use href="#i-plus"></use></svg></span>
+              </button>
+            </h3>
+            <div class="faq-a" id="faq-7" role="region">
+              <div><p>Tem. Os dois planos contam com suporte, e o Elite tem atendimento prioritário. Você também entra no grupo da comunidade StatsHub, onde tiramos dúvidas e trocamos leituras de jogos.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-end rv rv-up">
+          <p>Ainda com dúvida? Comece pelo plano que faz sentido para você.</p>
+          <a class="btn btn-lg btn-primary btn-glow" href="#planos">Começar Agora</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+    <footer class="foot">
+      <div class="wrap">
+        <div class="foot-top">
+          <div class="foot-brand">
+            <img src="assets/logo.png" width="296" height="50" alt="StatsHub" loading="lazy">
+            <p>
+              Plataforma de análise de futebol. Estatísticas completas de times e
+              jogadores, scanner ao vivo com dados de pressão e robôs que avisam no
+              Telegram.
+            </p>
+          </div>
+
+          <nav class="foot-col" aria-label="Plataforma">
+            <h3>Plataforma</h3>
+            <ul>
+              <li><a href="#recursos">Recursos</a></li>
+              <li><a href="#como-funciona">Como Funciona</a></li>
+              <li><a href="#planos">Planos</a></li>
+              <li><a href="https://app.statshub.com.br/login" target="_blank" rel="noopener noreferrer">Entrar<svg class="ico " aria-hidden="true"><use href="#i-arrow-up-right"></use></svg></a></li>
+            </ul>
+          </nav>
+          <nav class="foot-col" aria-label="Suporte">
+            <h3>Suporte</h3>
+            <ul>
+              <li><a href="#faq">Perguntas frequentes</a></li>
+              <li><a href="https://t.me/supguizaum" target="_blank" rel="noopener noreferrer">Falar com o suporte<svg class="ico " aria-hidden="true"><use href="#i-arrow-up-right"></use></svg></a></li>
+            </ul>
+          </nav>
+          <nav class="foot-col" aria-label="Legal">
+            <h3>Legal</h3>
+            <ul>
+              <li><a href="#planos">Termos de Uso</a></li>
+              <li><a href="#planos">Política de Privacidade</a></li>
+              <li><a href="#planos">Jogo Responsável</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="foot-bot">
+          <p>© 2026 StatsHub. Todos os direitos reservados.</p>
+          <p class="foot-legal">
+            A StatsHub é uma ferramenta de análise estatística e não garante resultados.
+            Aposte com responsabilidade. Proibido para menores de 18 anos.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  <a class="sup" href="https://t.me/supguizaum" target="_blank" rel="noopener noreferrer"
+     aria-label="Falar com o suporte no Telegram">
+    <svg class="ico " aria-hidden="true"><use href="#i-headset"></use></svg><span>Suporte</span>
+  </a>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
