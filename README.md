@@ -47,3 +47,11 @@ motivo de o site rolar liso no iPhone, e cada uma custou uma medição.
 Fica no repositório só como referência do que a página era. Não é servido, não é
 compilado e não precisa ser instalado. Se um dia deixar de ser consultado, pode
 ser apagado: está tudo no histórico do git.
+
+## Deploy
+
+O servico no painel e do tipo **Aplicativo**, com build por **Dockerfile**.
+O build copia `html/` para dentro de um nginx e sobe na porta **80**.
+
+O `server.js` continua aqui so para rodar local (`npm start`). Em producao
+quem serve e o nginx do Dockerfile.
