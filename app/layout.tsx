@@ -1,0 +1,110 @@
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
+import { findFavicon } from "@/lib/assets";
+import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+/* Se você salvar public/favicon.png, ele vira o ícone da aba.
+   Sem ele, o site usa o ícone gerado em app/icon.tsx. */
+const favicon = findFavicon();
+
+const SITE_URL = "https://statshub.com.br";
+const TITLE = "StatsHub - Plataforma de Análise de Futebol";
+const DESCRIPTION =
+  "Estatísticas avançadas, scanner ao vivo com gráfico de pressão, robôs de alerta e IA para análise. Tome decisões mais inteligentes e encontre oportunidades em segundos.";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: TITLE,
+    template: "%s | StatsHub",
+  },
+  description: DESCRIPTION,
+  applicationName: "StatsHub",
+  keywords: [
+    "análise de futebol",
+    "estatísticas de futebol",
+    "apostas esportivas",
+    "scanner ao vivo",
+    "gráfico de pressão",
+    "trading esportivo",
+    "odds",
+    "StatsHub",
+  ],
+  authors: [{ name: "StatsHub" }],
+  creator: "StatsHub",
+  publisher: "StatsHub",
+  alternates: {
+    canonical: "/",
+  },
+  ...(favicon && { icons: { icon: favicon.src, apple: favicon.src } }),
+  /* As imagens vêm de app/opengraph-image.tsx (geradas em build). */
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: SITE_URL,
+    siteName: "StatsHub",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  category: "sports",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#111111",
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
+};
+
+/* Schema.org, produto SaaS + ofertas + FAQ ficam na página (page.tsx). */
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "StatsHub",
+  url: SITE_URL,
+  logo: `${SITE_URL}/opengraph-image`,
+  description: DESCRIPTION,
+  sameAs: [],
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="pt-BR" className={inter.variable}>
+      <body className="bg-background font-sans text-white">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        {children}
+      </body>
+    </html>
+  );
+}
