@@ -95,7 +95,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={inter.variable}>
+    // `suppressHydrationWarning`: o script logo abaixo adiciona a classe `js` no
+    // <html> antes de o React hidratar, então o className do cliente nunca vai
+    // bater com o do servidor. É esperado. Sem isto o React acusa mismatch e pode
+    // descartar o HTML do servidor, re-renderizando a página inteira no navegador
+    // (piscada na tela e todo o trabalho do SSR jogado fora).
+    // A supressão vale só para este elemento, não para a árvore toda.
+    <html lang="pt-BR" className={inter.variable} suppressHydrationWarning>
       <body className="bg-background font-sans text-white">
         {/*
           Marca o <html> assim que o parser chega aqui, antes de qualquer
