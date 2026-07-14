@@ -95,19 +95,88 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /*  4. Trilho de "Como funciona" que cresce                            */
+  /*  4. "Como funciona": o trilho preenche conforme a seção passa       */
   /* ------------------------------------------------------------------ */
+  /*
+    Antes o trilho crescia de uma vez só, assim que a seção aparecia, e não
+    tinha nada a ver com a rolagem. Agora ele acompanha o dedo: o CSS lê uma
+    variável `--p` (0 a 1) e deriva dela o trilho, a bolinha e os passos que
+    acendem.
+
+    Este é o único código da página que roda durante a rolagem, então ele é
+    caro de errar. Três cuidados:
+
+      - o listener só existe enquanto a seção está na tela (o observer liga e
+        desliga). Fora dela, custo zero;
+      - um frame por vez (`travado`), senão o Safari dispara scroll dezenas de
+        vezes entre dois frames e o trabalho é jogado fora;
+      - o CSS só recebe `transform` e `opacity`. Nada aqui força layout.
+  */
   var trilho = document.querySelector(".steps-wrap");
 
   if (trilho && temIO) {
-    new IntersectionObserver(
-      function (e, obs) {
-        if (!e[0].isIntersecting) return;
-        trilho.classList.add("grown");
-        obs.disconnect();
-      },
-      { threshold: 0.3 },
-    ).observe(trilho);
+    var passos = trilho.querySelectorAll(".step");
+    var trilhoH = trilho.querySelector(".rail-h");
+    var travado = false;
+    var anterior = -1;
+
+    /* A largura do trilho só muda quando a janela muda: medir uma vez, e não
+       a cada frame. Ler layout durante a rolagem é o que trava o iPhone. */
+    function medirLargura() {
+      if (trilhoH) {
+        trilho.style.setProperty("--w", trilhoH.offsetWidth + "px");
+      }
+    }
+
+    function atualizar() {
+      travado = false;
+
+      var r = trilho.getBoundingClientRect();
+      var altura = window.innerHeight;
+
+      /* Começa a preencher quando o topo da seção sobe além de 85% da tela, e
+         termina quando o rodapé dela chega à metade. */
+      var inicio = altura * 0.85;
+      var curso = inicio - altura * 0.5 + r.height;
+      var p = (inicio - r.top) / curso;
+
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+
+      /* Nada mudou o bastante para valer um repaint. */
+      if (Math.abs(p - anterior) < 0.004) return;
+      anterior = p;
+
+      trilho.style.setProperty("--p", p.toFixed(3));
+
+      for (var i = 0; i < passos.length; i++) {
+        /* O passo acende um pouco antes de o trilho encostar nele. */
+        passos[i].classList.toggle("on", p >= (i + 0.35) / passos.length);
+      }
+    }
+
+    function aoRolar() {
+      if (travado) return;
+      travado = true;
+      requestAnimationFrame(atualizar);
+    }
+
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      /* Quem pediu menos movimento vê a seção pronta, acesa, sem animação. */
+      trilho.style.setProperty("--p", "1");
+      for (var n = 0; n < passos.length; n++) passos[n].classList.add("on");
+    } else {
+      new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) {
+          medirLargura();
+          window.addEventListener("scroll", aoRolar, { passive: true });
+          atualizar();
+        } else {
+          window.removeEventListener("scroll", aoRolar);
+        }
+      }).observe(trilho);
+
+      window.addEventListener("resize", medirLargura, { passive: true });
+    }
   }
 
   /* ------------------------------------------------------------------ */

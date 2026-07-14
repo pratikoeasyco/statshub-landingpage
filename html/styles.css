@@ -1350,9 +1350,24 @@ section {
 
 /* ------------------------------ Como funciona ----------------------------- */
 
+/*
+  `--p` é o quanto a seção já passou pela tela, de 0 a 1. Quem escreve é o
+  main.js, a cada frame, enquanto a seção está visível. Tudo aqui embaixo é
+  derivado dele: o trilho, a bolinha e os passos que acendem.
+
+  `--w` é a largura do trilho em pixels. Preciso dela para mover a bolinha com
+  `transform` em vez de `left`: `left` refaz o layout a cada frame, `transform`
+  não sai da GPU.
+*/
 .steps-wrap {
   position: relative;
   margin-top: 80px;
+  --p: 1;
+  --w: 0px;
+}
+/* Sem JavaScript, `--p` fica em 1 e a seção aparece inteira, acesa. */
+.js .steps-wrap {
+  --p: 0;
 }
 .steps {
   display: grid;
@@ -1386,6 +1401,29 @@ section {
   background: var(--card);
   color: var(--brand);
   box-shadow: 0 6px 16px -10px rgba(0, 0, 0, 0.9);
+  transition:
+    color 0.45s var(--ease),
+    border-color 0.45s var(--ease),
+    box-shadow 0.45s var(--ease);
+}
+
+/*
+  O passo nasce apagado e acende quando o trilho chega nele. Só `color`,
+  `border-color`, `box-shadow` e `opacity`: nenhuma delas mexe no layout.
+*/
+.js .step:not(.on) .step-mark {
+  color: var(--dim);
+  box-shadow: none;
+}
+.js .step:not(.on) .step-num {
+  background: var(--line);
+  color: var(--dim);
+}
+.step.on .step-mark {
+  border-color: rgba(255, 106, 0, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(255, 106, 0, 0.15),
+    0 6px 16px -10px rgba(0, 0, 0, 0.9);
 }
 @media (min-width: 1024px) {
   .step-mark {
@@ -1409,6 +1447,9 @@ section {
   color: #fff;
   font-size: 10px;
   font-weight: 700;
+  transition:
+    background-color 0.45s var(--ease),
+    color 0.45s var(--ease);
 }
 .step h3 {
   font-size: 17px;
@@ -1423,7 +1464,7 @@ section {
   color: var(--muted);
 }
 
-/* Trilho que cresce quando a seção aparece. */
+/* Trilho que preenche conforme a seção passa pela tela. */
 .rail-v {
   position: absolute;
   top: 8px;
@@ -1451,26 +1492,31 @@ section {
     background: var(--line);
   }
 }
+/*
+  O preenchimento é `scale`, não `width`: escalar é só a GPU esticando uma
+  camada pronta, enquanto mudar a largura obrigaria o navegador a refazer o
+  layout a cada frame da rolagem.
+
+  A transição curta (.15s) é de propósito: ela só suaviza o serrilhado entre um
+  frame e outro. Quem manda no valor é a rolagem, não o relógio.
+*/
 .rail-fill {
   width: 100%;
   height: 100%;
   border-radius: 999px;
   background: linear-gradient(180deg, var(--brand), rgba(255, 106, 0, 0.5));
-  transform: scaleY(0);
+  transform: scaleY(var(--p));
   transform-origin: top;
-  transition: transform 1.6s var(--ease);
+  transition: transform 0.15s linear;
 }
 .rail-h .rail-fill {
   background: linear-gradient(90deg, var(--brand), rgba(255, 106, 0, 0.5));
-  transform: scaleX(0);
+  transform: scaleX(var(--p));
   transform-origin: left;
 }
-.steps-wrap.grown .rail-v .rail-fill {
-  transform: scaleY(1);
-}
-.steps-wrap.grown .rail-h .rail-fill {
-  transform: scaleX(1);
-}
+
+/* A bolinha anda na ponta do trilho. `translateX` sobre a largura medida, e
+   não `left`, para não refazer o layout a cada frame. */
 .rail-dot {
   position: absolute;
   top: 50%;
@@ -1481,10 +1527,8 @@ section {
   border-radius: 999px;
   background: var(--brand);
   box-shadow: 0 0 8px 1px rgba(255, 106, 0, 0.8);
-  transition: left 1.6s var(--ease);
-}
-.steps-wrap.grown .rail-dot {
-  left: 100%;
+  transform: translateX(calc(var(--p) * var(--w)));
+  transition: transform 0.15s linear;
 }
 
 /* ------------------------------- Comparativo ------------------------------ */
