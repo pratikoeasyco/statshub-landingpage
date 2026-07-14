@@ -1,108 +1,49 @@
-# StatsHub — Landing Page
+# StatsHub — landing page
 
-Landing page premium de alta conversão para a StatsHub, plataforma profissional
-de análise de futebol.
-
-**Stack:** Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS ·
-Framer Motion · Lucide Icons.
-
-## Rodando
-
-```bash
-npm install
-npm run dev      # http://localhost:3000
-npm run build    # build de produção (100% estático)
-npm start
-```
-
-## Estrutura
+O site é estático. Não há build, não há React, não há framework.
 
 ```
-app/
-  layout.tsx            SEO, Open Graph, Schema.org (Organization), fontes
-  page.tsx              Composição das seções + Schema.org (SoftwareApplication, FAQ)
-  opengraph-image.tsx   Imagem de compartilhamento 1200×630 (gerada em build)
-  icon.tsx              Favicon (gerado em build)
-  globals.css           Tokens, utilitários e reset
-
-components/
-  sections/             Uma seção da página por arquivo
-  mockups/              As 5 telas da plataforma, recriadas em código
-  ui/                   Botão, heading, reveal, count-up, moldura, logo
-
-lib/
-  content.ts            TODO o texto da página fica aqui
-  motion.ts             Variantes de animação (fade, slide, stagger)
-  useMediaQuery.ts      Media query SSR-safe
+html/            o site inteiro (700 KB). Detalhes em html/README.md
+server.js        entrega a pasta html/. Sem dependências: só o Node.
+package.json     npm start -> node server.js
+next-original/   o projeto Next que deu origem a tudo isto. Só referência.
 ```
 
-## Logo e favicon
+## Como sobe
 
-Ficam em `public/`, e a troca é automática — não precisa editar código:
+O painel roda `npm start`, que roda `node server.js`, que serve `html/` na
+porta de `process.env.PORT` (ou 3000).
 
-| Arquivo              | O que é                                   |
-| -------------------- | ----------------------------------------- |
-| `public/logo.png`    | Logo (navbar, rodapé, tabela comparativa) |
-| `public/favicon.png` | Ícone da aba do navegador                 |
+`npm run build` não faz nada de propósito: não existe nada para compilar. E não
+é preciso instalar nada: o `package.json` não tem dependências.
 
-Aceita `.png`, `.svg`, `.jpg` e `.webp`. Se o arquivo não existir, o site usa a
-marca desenhada em código — nunca fica com imagem quebrada. Veja
-[`public/LEIA-ME.md`](public/LEIA-ME.md).
+## Por que não é mais Next
 
-Os arquivos que estão lá hoje foram gerados a partir da marca que desenhei.
-**Sobrescreva com os seus, mantendo os mesmos nomes.**
+A página engasgava ao rolar no Safari do iPhone. Reescrita em HTML puro, no
+mesmo aparelho (iPhone 13), mesma rolagem:
 
-## Editando o conteúdo
+|                 | Next/React | HTML puro |
+| --------------- | ---------- | --------- |
+| fps na rolagem  | 29         | **37**    |
+| frames perdidos | 82%        | **72%**   |
+| JavaScript      | 121 KB     | **8 KB**  |
+| tempo de load   | 156 ms     | **83 ms** |
 
-Praticamente tudo — títulos, textos, recursos, planos, preços, FAQ, depoimentos —
-está em [`lib/content.ts`](lib/content.ts). Não é preciso abrir os componentes
-para trocar uma copy ou um preço.
+Lighthouse (mobile): **99** de performance, LCP 2,0 s, TBT 0 ms, CLS 0.
 
-Todos os CTAs da página apontam para `CTA_TARGET` (`#planos`) e rolam suavemente
-até a seção de Planos.
+Em produção o `next start` segurava ~560 MB de memória para servir uma página
+que nunca muda. O `server.js` usa ~30 MB.
 
-## As telas da plataforma
+## Como editar o site
 
-As 5 telas (Jogos do Dia, Scanner Ao Vivo, Robôs, James e Zeus) foram
-**recriadas em código**, em `components/mockups/`. A vantagem: ficam nítidas em
-qualquer resolução, animam (as barras de pressão do scanner sobem conforme você
-rola), se adaptam ao mobile e não pesam no carregamento.
+Mexa direto em `html/index.html`, `html/styles.css` e `html/main.js`. O que está
+lá é o que vai pro ar: não existe etapa de geração no meio.
 
-### Usar os prints reais no lugar dos mockups
+Antes de mexer no CSS, leia as cinco regras no topo do `html/styles.css`. São o
+motivo de o site rolar liso no iPhone, e cada uma custou uma medição.
 
-Salve os arquivos em **`public/screenshots/`** com estes nomes — e pronto, não
-precisa editar código nenhum:
+## next-original/
 
-| Arquivo               | Tela                          |
-| --------------------- | ----------------------------- |
-| `jogos-do-dia.png`    | Jogos do Dia                  |
-| `scanner-ao-vivo.png` | Scanner Ao Vivo               |
-| `robos.png`           | Meus Robôs                    |
-| `james.png`           | James — montador de bilhetes   |
-| `zeus.png`            | Zeus — entradas prontas       |
-
-Aceita `.png`, `.jpg`, `.jpeg` e `.webp`. O [`lib/assets.ts`](lib/assets.ts)
-lê a pasta durante o build, descobre as dimensões direto do cabeçalho do arquivo
-e o `PlatformShot` troca o mockup pela imagem real — com `next/image`, ou seja,
-lazy loading, conversão para WebP/AVIF, `srcset` responsivo e bordas
-arredondadas.
-
-Dá para misturar: se você colocar só 2 dos 5 prints, os outros três seguem com
-os mockups em código.
-
-Depois de copiar os arquivos: em dev, recarregue a página; em produção, rode
-`npm run build` de novo.
-
-## Cuidado com os tokens de cor
-
-O fundo se chama `background` (`bg-background`), **não** `base`. O Tailwind já
-tem o utilitário de tamanho `text-base`, e uma cor chamada `base` geraria um
-segundo `.text-base` definindo `color` — o texto sairia pintado com a cor do
-fundo. Vale a mesma regra para qualquer nome que colida com utilitário nativo.
-
-## Antes de publicar
-
-- Trocar `SITE_URL` em `app/layout.tsx`, `app/sitemap.ts` e `app/robots.ts`.
-- Apontar os botões "Assinar Agora" para o checkout real (hoje eles rolam para
-  `#planos`) e os links de redes sociais no rodapé (`components/sections/Footer.tsx`).
-- Revisar preços e o `aggregateRating` do Schema.org em `app/page.tsx`.
+Fica no repositório só como referência do que a página era. Não é servido, não é
+compilado e não precisa ser instalado. Se um dia deixar de ser consultado, pode
+ser apagado: está tudo no histórico do git.
