@@ -1,10 +1,7 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 import { COMPARISON } from "@/lib/content";
-import { fadeUp, viewportSoft } from "@/lib/motion";
 import { Logo } from "../ui/Logo";
+import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 
 export function Comparison() {
@@ -13,7 +10,7 @@ export function Comparison() {
       id="diferenciais"
       className="relative overflow-hidden border-y border-line bg-section py-24 sm:py-32"
     >
-      <div className="pointer-events-none absolute right-0 top-1/4 -z-10 h-[400px] w-[400px] rounded-full bg-brand/[0.07] blur-[130px]" />
+      <div className="pointer-events-none absolute right-0 top-1/4 -z-10 h-[400px] w-[400px] bg-[radial-gradient(closest-side,rgba(255,106,0,0.10),transparent)]" />
 
       <div className="container-x">
         <SectionHeading
@@ -21,13 +18,7 @@ export function Comparison() {
           subtitle="A diferença não está em ter os dados. Está em quanto tempo você leva para transformá-los em decisão."
         />
 
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportSoft}
-          className="mt-16 overflow-hidden rounded-3xl border border-line bg-card shadow-card"
-        >
+        <Reveal className="mt-16 overflow-hidden rounded-3xl border border-line bg-card shadow-card">
           {/* Cabeçalho */}
           <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 border-b border-line bg-[#1A1A1A] p-5 sm:grid-cols-[1.2fr_1fr_1fr] sm:gap-6 sm:p-6">
             <span className="hidden text-[11px] font-semibold uppercase tracking-[0.14em] text-[#6E6E6E] sm:block">
@@ -51,17 +42,12 @@ export function Comparison() {
 
           {/* Linhas */}
           <ul className="divide-y divide-line">
-            {COMPARISON.rows.map((row, i) => {
+            {COMPARISON.rows.map((row) => {
               const Icon = row.icon;
 
               return (
-                <motion.li
+                <li
                   key={row.criterion}
-                  variants={fadeUp}
-                  custom={i * 0.4}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={viewportSoft}
                   className="group grid grid-cols-2 gap-3 p-5 transition-colors duration-300 hover:bg-white/[0.02] sm:grid-cols-[1.2fr_1fr_1fr] sm:items-center sm:gap-6 sm:p-6"
                 >
                   <div className="col-span-2 flex items-center gap-3 sm:col-span-1">
@@ -90,11 +76,11 @@ export function Comparison() {
                       {row.traditional}
                     </span>
                   </div>
-                </motion.li>
+                </li>
               );
             })}
           </ul>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

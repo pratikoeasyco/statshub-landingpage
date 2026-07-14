@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { LogIn } from "lucide-react";
 import { CTA_TARGET, LOGIN_URL, NAV_LINKS } from "@/lib/content";
-import { EASE } from "@/lib/motion";
 import { Button } from "../ui/Button";
 import { Logo } from "../ui/Logo";
 
@@ -12,6 +10,11 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    /*
+      Listener passivo e barato: só compara um número e, no máximo, troca um
+      booleano. Não lê layout (nada de getBoundingClientRect), então não força
+      recálculo de estilo a cada scroll.
+    */
     const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -19,11 +22,8 @@ export function Navbar() {
   }, []);
 
   return (
-    <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: EASE }}
-      className={`fixed inset-x-0 top-0 z-50 h-[72px] transition-all duration-500 ease-smooth ${
+    <header
+      className={`animate-drop fixed inset-x-0 top-0 z-50 h-[72px] transition-[background-color,border-color,backdrop-filter] duration-500 ease-smooth ${
         scrolled
           ? "border-b border-line/80 bg-background/70 backdrop-blur-xl backdrop-saturate-150"
           : "border-b border-transparent bg-transparent"
@@ -52,8 +52,8 @@ export function Navbar() {
 
         {/*
           Os dois botões ficam visíveis em qualquer tela, inclusive no mobile.
-          No mobile eles encolhem (size sm) e o rótulo do CTA fica mais curto,
-          senão não caberiam ao lado da logo.
+          No mobile eles encolhem e o rótulo do CTA fica mais curto, senão não
+          caberiam ao lado da logo.
         */}
         <div className="flex shrink-0 items-center gap-2">
           <Button
@@ -66,16 +66,12 @@ export function Navbar() {
             Entrar
           </Button>
 
-          <Button
-            href={CTA_TARGET}
-            size="sm"
-            className="sm:h-11 sm:px-5 sm:text-sm"
-          >
+          <Button href={CTA_TARGET} size="sm" className="sm:h-11 sm:px-5 sm:text-sm">
             <span className="sm:hidden">Começar</span>
             <span className="hidden sm:inline">Começar Agora</span>
           </Button>
         </div>
       </nav>
-    </motion.header>
+    </header>
   );
 }

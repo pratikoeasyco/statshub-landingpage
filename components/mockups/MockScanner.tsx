@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import {
   Star,
   Trophy,
@@ -10,7 +7,6 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { Crest, SectionCard } from "./atoms";
-import { EASE } from "@/lib/motion";
 
 /* Barras de pressão, valores fixos (nada de random: quebraria a hidratação). */
 const PRESSURE: { up: number; down: number }[] = [
@@ -63,7 +59,7 @@ function Donut({
         strokeWidth="4"
         opacity="0.85"
       />
-      <motion.circle
+      <circle
         cx={size / 2}
         cy={size / 2}
         r={r}
@@ -72,10 +68,7 @@ function Donut({
         strokeWidth="4"
         strokeLinecap="round"
         strokeDasharray={c}
-        initial={{ strokeDashoffset: c }}
-        whileInView={{ strokeDashoffset: c * (1 - pct) }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 1.2, ease: EASE, delay: 0.2 }}
+        strokeDashoffset={c * (1 - pct)}
       />
     </svg>
   );
@@ -126,13 +119,7 @@ function ShotRow({
         <b className="font-bold tabular-nums">{away}</b>
       </div>
       <div className="flex h-[3px] overflow-hidden rounded-full bg-[#2A2A2A]">
-        <motion.i
-          className="block h-full rounded-full bg-ok"
-          initial={{ width: 0 }}
-          whileInView={{ width: `${pct}%` }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 1, ease: EASE, delay: 0.3 }}
-        />
+        <i className="block h-full rounded-full bg-ok" style={{ width: `${pct}%` }} />
         <i className="block h-full flex-1 rounded-full bg-brand" />
       </div>
     </div>
@@ -212,25 +199,17 @@ export function MockScanner({ className = "" }: { className?: string }) {
             {PRESSURE.map((p, i) => (
               <div key={i} className="flex flex-1 flex-col items-center">
                 <div className="flex h-[52px] w-full items-end">
-                  <motion.i
+                  <i
                     className="block w-full rounded-t-[2px] bg-ok"
-                    style={{ height: (p.up / 100) * 52, transformOrigin: "bottom" }}
-                    initial={{ scaleY: 0 }}
-                    whileInView={{ scaleY: 1 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.5, ease: EASE, delay: 0.2 + i * 0.012 }}
+                    style={{ height: (p.up / 100) * 52 }}
                   />
                 </div>
                 <i className="h-px w-full bg-[#2A2A2A]" />
                 <div className="flex h-[16px] w-full items-start">
                   {p.down > 0 && (
-                    <motion.i
+                    <i
                       className="block w-full rounded-b-[2px] bg-brand"
-                      style={{ height: (p.down / 100) * 40, transformOrigin: "top" }}
-                      initial={{ scaleY: 0 }}
-                      whileInView={{ scaleY: 1 }}
-                      viewport={{ once: true, amount: 0.3 }}
-                      transition={{ duration: 0.5, ease: EASE, delay: 0.2 + i * 0.012 }}
+                      style={{ height: (p.down / 100) * 40 }}
                     />
                   )}
                 </div>
@@ -256,13 +235,7 @@ export function MockScanner({ className = "" }: { className?: string }) {
             <b className="font-bold text-brand">(0%) 0</b>
           </div>
           <div className="h-[3px] overflow-hidden rounded-full bg-[#2A2A2A]">
-            <motion.i
-              className="block h-full rounded-full bg-gradient-to-r from-ok to-ok/70"
-              initial={{ width: 0 }}
-              whileInView={{ width: "97%" }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 1.2, ease: EASE, delay: 0.4 }}
-            />
+            <i className="block h-full w-[97%] rounded-full bg-gradient-to-r from-ok to-ok/70" />
           </div>
         </div>
       </div>

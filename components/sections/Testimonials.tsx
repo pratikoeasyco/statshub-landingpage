@@ -1,9 +1,6 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Quote, Star } from "lucide-react";
 import { TESTIMONIALS } from "@/lib/content";
-import { cardHover, fadeUp, viewportSoft } from "@/lib/motion";
+import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 
 export function Testimonials() {
@@ -17,15 +14,11 @@ export function Testimonials() {
 
         <div className="mt-16 grid gap-5 md:grid-cols-3">
           {TESTIMONIALS.map((t, i) => (
-            <motion.figure
+            <Reveal
               key={t.name}
-              variants={fadeUp}
-              custom={i}
-              initial="hidden"
-              whileInView="show"
-              viewport={viewportSoft}
-              whileHover={cardHover}
-              className="surface surface-hairline group relative flex flex-col p-6 transition-colors duration-300 hover:border-brand/35"
+              as="figure"
+              delay={(i % 3) * 80}
+              className="surface surface-hairline group relative flex flex-col p-6 transition-[transform,border-color] duration-300 hover:scale-[1.03] hover:border-brand/35"
             >
               <span className="pointer-events-none absolute -inset-px -z-10 rounded-2xl bg-gradient-to-b from-brand/[0.08] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
@@ -49,21 +42,13 @@ export function Testimonials() {
                   {t.name}
                 </figcaption>
 
-                <div
-                  className="flex gap-0.5"
-                  aria-label={`Avaliação ${t.rating} de 5`}
-                >
+                <div className="flex gap-0.5" aria-label={`Avaliação ${t.rating} de 5`}>
                   {Array.from({ length: t.rating }).map((_, s) => (
-                    <Star
-                      key={s}
-                      size={12}
-                      className="text-brand"
-                      fill="currentColor"
-                    />
+                    <Star key={s} size={12} className="text-brand" fill="currentColor" />
                   ))}
                 </div>
               </div>
-            </motion.figure>
+            </Reveal>
           ))}
         </div>
       </div>

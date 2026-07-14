@@ -10,7 +10,6 @@
     "build:static": "cross-env STATIC=1 next build"
   },
   "dependencies": {
-    "framer-motion": "^11.18.2",
     "lucide-react": "^0.469.0",
     "next": "^15.1.6",
     "react": "^19.0.0",

@@ -78,6 +78,19 @@ const config: Config = {
           "0%,100%": { opacity: ".45" },
           "50%": { opacity: ".85" },
         },
+        /* Entradas do hero/navbar: substituem o que o Framer Motion fazia. */
+        rise: {
+          from: { opacity: "0", transform: "translate3d(0, 24px, 0)" },
+          to: { opacity: "1", transform: "none" },
+        },
+        pop: {
+          from: { opacity: "0", transform: "translate3d(0, 24px, 0) scale(.94)" },
+          to: { opacity: "1", transform: "none" },
+        },
+        drop: {
+          from: { opacity: "0", transform: "translate3d(0, -80px, 0)" },
+          to: { opacity: "1", transform: "none" },
+        },
       },
       animation: {
         marquee: "marquee 38s linear infinite",
@@ -86,6 +99,11 @@ const config: Config = {
         "pulse-dot": "pulseDot 1.6s ease-in-out infinite",
         shimmer: "shimmer 2.4s ease-in-out infinite",
         breathe: "breathe 6s ease-in-out infinite",
+        /* `backwards` mantém o estado inicial durante o delay, senão o elemento
+           pisca visível antes de a animação começar. */
+        rise: "rise .8s cubic-bezier(.22,1,.36,1) backwards",
+        pop: "pop .9s cubic-bezier(.22,1,.36,1) backwards",
+        drop: "drop .8s cubic-bezier(.22,1,.36,1) backwards",
       },
       transitionTimingFunction: {
         smooth: "cubic-bezier(.22,1,.36,1)",

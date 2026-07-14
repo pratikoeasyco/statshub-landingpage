@@ -97,6 +97,20 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={inter.variable}>
       <body className="bg-background font-sans text-white">
+        {/*
+          Marca o <html> assim que o parser chega aqui, antes de qualquer
+          conteúdo ser pintado. É isso que liga as animações de entrada.
+
+          A lógica é invertida de propósito: o CSS só esconde o conteúdo se esta
+          classe existir. Assim, se o JavaScript falhar ou estiver bloqueado, a
+          página aparece inteira (sem animação) em vez de ficar em branco.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add('js')`,
+          }}
+        />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

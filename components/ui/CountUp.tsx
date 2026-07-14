@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
+import { onceInView } from "@/lib/observer";
 
 type Props = {
   to: number;
@@ -15,33 +15,37 @@ const easeOut = (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
 
 export function CountUp({ to, duration = 1800, suffix = "", className }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
   const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (!inView) return;
-
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (prefersReduced) {
-      setValue(to);
-      return;
-    }
+    const el = ref.current;
+    if (!el) return;
 
     let frame = 0;
-    const start = performance.now();
 
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      setValue(Math.round(easeOut(progress) * to));
-      if (progress < 1) frame = requestAnimationFrame(tick);
+    const cleanup = onceInView(el, () => {
+      const reduzido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduzido) {
+        setValue(to);
+        return;
+      }
+
+      const start = performance.now();
+
+      const tick = (now: number) => {
+        const progress = Math.min((now - start) / duration, 1);
+        setValue(Math.round(easeOut(progress) * to));
+        if (progress < 1) frame = requestAnimationFrame(tick);
+      };
+
+      frame = requestAnimationFrame(tick);
+    });
+
+    return () => {
+      cleanup();
+      cancelAnimationFrame(frame);
     };
-
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [inView, to, duration]);
+  }, [to, duration]);
 
   return (
     <span ref={ref} className={className}>

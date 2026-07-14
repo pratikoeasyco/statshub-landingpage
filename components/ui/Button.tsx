@@ -1,8 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
 import type { ReactNode } from "react";
-import { EASE } from "@/lib/motion";
 
 type Variant = "primary" | "secondary" | "ghost" | "light";
 type Size = "sm" | "md" | "lg" | "xl";
@@ -27,7 +23,6 @@ const SIZES: Record<Size, string> = {
 type ButtonProps = {
   children: ReactNode;
   href?: string;
-  onClick?: () => void;
   variant?: Variant;
   size?: Size;
   className?: string;
@@ -36,18 +31,29 @@ type ButtonProps = {
   ariaLabel?: string;
 };
 
+/*
+  Server Component: o hover e o clique são CSS puro (`hover:` e `active:`).
+  Antes isto era um componente do Framer Motion só para fazer um scale no hover,
+  o que obrigava a mandar JavaScript para o navegador em cada botão da página.
+*/
 export function Button({
   children,
   href,
-  onClick,
   variant = "primary",
   size = "md",
   className = "",
   glow = false,
   ariaLabel,
 }: ButtonProps) {
-  const base =
-    "group relative inline-flex select-none items-center justify-center gap-2 rounded-full font-semibold tracking-tight transition-all duration-300 ease-smooth will-change-transform";
+  const classes = [
+    "group relative inline-flex select-none items-center justify-center gap-2",
+    "rounded-full font-semibold tracking-tight will-change-transform",
+    "transition-[transform,background-color,border-color,box-shadow] duration-300 ease-smooth",
+    "hover:scale-[1.03] active:scale-[0.97]",
+    VARIANTS[variant],
+    SIZES[size],
+    className,
+  ].join(" ");
 
   const content = (
     <>
@@ -61,46 +67,29 @@ export function Button({
     </>
   );
 
-  const classes = `${base} ${VARIANTS[variant]} ${SIZES[size]} ${className}`;
-
-  const motionProps = {
-    whileHover: { scale: 1.03 },
-    whileTap: { scale: 0.97 },
-    transition: { duration: 0.25, ease: EASE },
-  } as const;
-
   if (href) {
     /*
       Link externo (checkout, app) abre em nova aba, para o visitante não perder
-      a landing. Âncora interna (#planos) continua na mesma aba: abrir uma
-      âncora em aba nova só levaria de volta ao topo do site.
+      a landing. Âncora interna (#planos) continua na mesma aba.
     */
     const external = /^https?:\/\//i.test(href);
 
     return (
-      <motion.a
+      <a
         href={href}
-        onClick={onClick}
         aria-label={ariaLabel}
         className={classes}
         target={external ? "_blank" : undefined}
         rel={external ? "noopener noreferrer" : undefined}
-        {...motionProps}
       >
         {content}
-      </motion.a>
+      </a>
     );
   }
 
   return (
-    <motion.button
-      type="button"
-      onClick={onClick}
-      aria-label={ariaLabel}
-      className={classes}
-      {...motionProps}
-    >
+    <button type="button" aria-label={ariaLabel} className={classes}>
       {content}
-    </motion.button>
+    </button>
   );
 }

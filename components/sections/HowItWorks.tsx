@@ -1,25 +1,26 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { STEPS } from "@/lib/content";
-import { fadeUp, viewportSoft } from "@/lib/motion";
+import { onceInView } from "@/lib/observer";
+import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 
 export function HowItWorks() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const [grown, setGrown] = useState(false);
 
-  /* A linha cresce conforme a seção atravessa a viewport. */
-  const { scrollYProgress } = useScroll({
-    target: trackRef,
-    offset: ["start 0.85", "end 0.55"],
-  });
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 24,
-    restDelta: 0.001,
-  });
-  const glowX = useTransform(progress, (v) => `${v * 100}%`);
+  /*
+    Antes a linha crescia acompanhando o scroll, o que exigia recalcular a
+    posição a cada frame. Agora ela cresce uma vez, com uma transição CSS,
+    quando a seção aparece. O efeito na tela é praticamente o mesmo e o custo
+    para a máquina cai a zero depois de rodar.
+  */
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+    return onceInView(el, () => setGrown(true));
+  }, []);
 
   return (
     <section
@@ -35,21 +36,21 @@ export function HowItWorks() {
         <div ref={trackRef} className="relative mt-20">
           {/* Trilho vertical (mobile/tablet) */}
           <div className="absolute left-[27px] top-2 h-[calc(100%-16px)] w-[2px] rounded-full bg-line lg:hidden">
-            <motion.div
-              className="h-full w-full origin-top rounded-full bg-gradient-to-b from-brand to-brand/50"
-              style={{ scaleY: progress }}
+            <div
+              className="h-full w-full origin-top rounded-full bg-gradient-to-b from-brand to-brand/50 transition-transform duration-[1600ms] ease-smooth"
+              style={{ transform: `scaleY(${grown ? 1 : 0})` }}
             />
           </div>
 
           {/* Trilho horizontal (desktop), com o ponto de luz na ponta */}
           <div className="absolute left-0 top-[27px] hidden h-[2px] w-full rounded-full bg-line lg:block">
-            <motion.div
-              className="h-full w-full origin-left rounded-full bg-gradient-to-r from-brand to-brand/50"
-              style={{ scaleX: progress }}
+            <div
+              className="h-full w-full origin-left rounded-full bg-gradient-to-r from-brand to-brand/50 transition-transform duration-[1600ms] ease-smooth"
+              style={{ transform: `scaleX(${grown ? 1 : 0})` }}
             />
-            <motion.span
-              className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand shadow-[0_0_20px_4px_rgba(255,106,0,.7)]"
-              style={{ left: glowX }}
+            <span
+              className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand shadow-[0_0_20px_4px_rgba(255,106,0,.7)] transition-[left] duration-[1600ms] ease-smooth"
+              style={{ left: grown ? "100%" : "0%" }}
             />
           </div>
 
@@ -58,13 +59,10 @@ export function HowItWorks() {
               const Icon = step.icon;
 
               return (
-                <motion.li
+                <Reveal
                   key={step.number}
-                  variants={fadeUp}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={viewportSoft}
+                  as="li"
+                  delay={i * 120}
                   className="relative pl-[68px] lg:pl-0"
                 >
                   {/* Marcador */}
@@ -81,7 +79,7 @@ export function HowItWorks() {
                   <p className="mt-2 max-w-xs text-[14px] leading-relaxed text-muted">
                     {step.description}
                   </p>
-                </motion.li>
+                </Reveal>
               );
             })}
           </ol>

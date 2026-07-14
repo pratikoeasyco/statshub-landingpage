@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { CTA_TARGET, FAQS } from "@/lib/content";
-import { EASE, fadeUp, viewportSoft } from "@/lib/motion";
 import { Button } from "../ui/Button";
+import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 
 export function Faq() {
@@ -26,13 +25,9 @@ export function Faq() {
             const buttonId = `faq-button-${i}`;
 
             return (
-              <motion.div
+              <Reveal
                 key={faq.question}
-                variants={fadeUp}
-                custom={i * 0.5}
-                initial="hidden"
-                whileInView="show"
-                viewport={viewportSoft}
+                delay={i * 60}
                 className={`overflow-hidden rounded-2xl border bg-card transition-colors duration-300 ${
                   isOpen ? "border-brand/35" : "border-line hover:border-white/20"
                 }`}
@@ -62,43 +57,40 @@ export function Faq() {
                   </button>
                 </h3>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={panelId}
-                      role="region"
-                      aria-labelledby={buttonId}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: EASE }}
-                      className="overflow-hidden"
-                    >
-                      <p className="px-5 pb-5 text-pretty text-[14.5px] leading-relaxed text-muted sm:px-6 sm:pb-6">
-                        {faq.answer}
-                      </p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                {/*
+                  Truque do grid: animar de `0fr` para `1fr` faz a altura crescer
+                  suavemente sem que ninguém precise medir nada em JavaScript.
+                  Era para isso que servia o AnimatePresence do Framer Motion.
+                */}
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  className="grid transition-[grid-template-rows,opacity] duration-400 ease-smooth"
+                  style={{
+                    gridTemplateRows: isOpen ? "1fr" : "0fr",
+                    opacity: isOpen ? 1 : 0,
+                  }}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-5 text-pretty text-[14.5px] leading-relaxed text-muted sm:px-6 sm:pb-6">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
             );
           })}
         </div>
 
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={viewportSoft}
-          className="mt-14 flex flex-col items-center gap-5 text-center"
-        >
+        <Reveal className="mt-14 flex flex-col items-center gap-5 text-center">
           <p className="text-[15px] text-muted">
             Ainda com dúvida? Comece pelo plano que faz sentido para você.
           </p>
           <Button href={CTA_TARGET} size="lg" glow>
             Começar Agora
           </Button>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

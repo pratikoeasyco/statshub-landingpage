@@ -1,15 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
 import { Check } from "lucide-react";
 import { MODULES, type PlatformModule } from "@/lib/content";
-import { EASE, fadeUp, slideRight, viewportSoft } from "@/lib/motion";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 import { PlatformShot } from "../ui/PlatformShot";
+import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 
-/** O card do scanner é portrait, precisa de menos largura para caber na coluna. */
+/** O card do scanner é portrait: precisa de menos largura para caber na coluna. */
 const shotWidth = (id: PlatformModule["id"]) =>
   id === "scanner" ? "mx-auto max-w-[320px]" : "";
 
@@ -53,25 +52,32 @@ function CopyBlock({
   onActive: (i: number) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { amount: 0.6 });
 
+  /*
+    Aqui o observer precisa disparar toda vez (para ida e volta do scroll),
+    então é um observer próprio, e não o `onceInView` compartilhado.
+    É o único da página com esse comportamento.
+  */
   useEffect(() => {
-    if (inView) onActive(index);
-  }, [inView, index, onActive]);
+    const el = ref.current;
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) onActive(index);
+      },
+      { threshold: 0.6 },
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, [index, onActive]);
 
   return (
-    <div
-      ref={ref}
-      className="flex min-h-[74vh] flex-col justify-center py-10"
-    >
-      <motion.div
-        variants={slideRight}
-        initial="hidden"
-        whileInView="show"
-        viewport={viewportSoft}
-      >
+    <div ref={ref} className="flex min-h-[74vh] flex-col justify-center py-10">
+      <Reveal variant="right">
         <Copy mod={mod} />
-      </motion.div>
+      </Reveal>
     </div>
   );
 }
@@ -115,25 +121,24 @@ export function Modules() {
                 </div>
 
                 {/* Altura fixa: os mockups (paisagem e retrato) se alternam
-                    dentro da mesma caixa, sempre centralizados. */}
+                    dentro da mesma caixa, sempre centralizados. O crossfade é
+                    uma transição CSS de opacity/transform. */}
                 <div className="relative h-full w-full">
                   {MODULES.map((mod, i) => (
-                    <motion.div
+                    <div
                       key={mod.id}
-                      className="absolute inset-0 flex items-center justify-center"
-                      animate={{
-                        opacity: i === active ? 1 : 0,
-                        scale: i === active ? 1 : 0.95,
-                        filter: i === active ? "blur(0px)" : "blur(8px)",
-                      }}
-                      transition={{ duration: 0.6, ease: EASE }}
-                      style={{ pointerEvents: i === active ? "auto" : "none" }}
+                      aria-hidden={i !== active}
+                      className={`absolute inset-0 flex items-center justify-center transition-[opacity,transform,filter] duration-500 ease-smooth ${
+                        i === active
+                          ? "opacity-100 blur-0"
+                          : "pointer-events-none scale-95 opacity-0 blur-[6px]"
+                      }`}
                     >
                       <PlatformShot
                         module={mod.id}
                         className={`w-full ${shotWidth(mod.id)}`}
                       />
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -143,17 +148,10 @@ export function Modules() {
           /* ---------- Mobile / tablet: blocos empilhados ---------- */
           <div className="mt-14 space-y-20">
             {MODULES.map((mod) => (
-              <motion.div
-                key={mod.id}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="show"
-                viewport={viewportSoft}
-                className="space-y-8"
-              >
+              <Reveal key={mod.id} className="space-y-8">
                 <Copy mod={mod} compact />
                 <PlatformShot module={mod.id} className={shotWidth(mod.id)} />
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         )}

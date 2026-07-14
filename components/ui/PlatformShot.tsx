@@ -1,17 +1,39 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import { MODULES, type ModuleId } from "@/lib/content";
 import { BrowserFrame } from "./BrowserFrame";
 import { FitScale } from "./FitScale";
 import { useScreenshots } from "./AssetsProvider";
-import { MockJogos, MockJogosCompact } from "../mockups/MockJogos";
-import { MockScanner } from "../mockups/MockScanner";
-import { MockRobos, MockRobosCompact } from "../mockups/MockRobos";
-import { MockJames, MockJamesCompact } from "../mockups/MockJames";
-import { MockZeus, MockZeusCompact } from "../mockups/MockZeus";
+
+/*
+  Os mockups desenhados em código só entram em cena se faltar o print real de
+  algum módulo. Como hoje os 5 prints existem, eles nunca renderizam.
+
+  Por isso são carregados sob demanda (`next/dynamic`): o código deles vai para
+  um chunk separado que o navegador simplesmente nunca baixa. Antes, sendo
+  import normal, essas 5 telas viajavam no bundle principal sem nunca aparecer.
+*/
+const lazyMock = (load: () => Promise<{ default: ComponentType }>) =>
+  dynamic(load, { ssr: false });
+
+const FULL: Record<ModuleId, ComponentType> = {
+  jogos: lazyMock(() => import("../mockups/MockJogos").then((m) => ({ default: m.MockJogos }))),
+  scanner: lazyMock(() => import("../mockups/MockScanner").then((m) => ({ default: m.MockScanner }))),
+  robos: lazyMock(() => import("../mockups/MockRobos").then((m) => ({ default: m.MockRobos }))),
+  james: lazyMock(() => import("../mockups/MockJames").then((m) => ({ default: m.MockJames }))),
+  zeus: lazyMock(() => import("../mockups/MockZeus").then((m) => ({ default: m.MockZeus }))),
+};
+
+const COMPACT: Record<ModuleId, ComponentType> = {
+  jogos: lazyMock(() => import("../mockups/MockJogos").then((m) => ({ default: m.MockJogosCompact }))),
+  scanner: lazyMock(() => import("../mockups/MockScanner").then((m) => ({ default: m.MockScanner }))),
+  robos: lazyMock(() => import("../mockups/MockRobos").then((m) => ({ default: m.MockRobosCompact }))),
+  james: lazyMock(() => import("../mockups/MockJames").then((m) => ({ default: m.MockJamesCompact }))),
+  zeus: lazyMock(() => import("../mockups/MockZeus").then((m) => ({ default: m.MockZeusCompact }))),
+};
 
 /** Cada tela foi desenhada nestas dimensões e é escalada para caber. */
 const DESIGN: Record<ModuleId, { w: number; h: number }> = {
@@ -30,29 +52,13 @@ const URLS: Record<ModuleId, string> = {
   zeus: "app.statshub.com.br/zeus",
 };
 
-const FULL: Record<ModuleId, ComponentType> = {
-  jogos: MockJogos,
-  scanner: MockScanner,
-  robos: MockRobos,
-  james: MockJames,
-  zeus: MockZeus,
-};
-
-const COMPACT: Record<ModuleId, ComponentType> = {
-  jogos: MockJogosCompact,
-  scanner: MockScanner,
-  robos: MockRobosCompact,
-  james: MockJamesCompact,
-  zeus: MockZeusCompact,
-};
-
 type Props = {
   module: ModuleId;
   /** Aura laranja atrás do mockup. */
   glow?: boolean;
   /** Flutuação contínua (usada no hero). */
   float?: boolean;
-  /** Prioriza o carregamento (apenas o mockup do hero). */
+  /** Prioriza o carregamento (apenas a imagem do hero). */
   priority?: boolean;
   className?: string;
 };
@@ -86,19 +92,16 @@ export function PlatformShot({
       className="h-auto w-full"
     />
   ) : isScanner ? (
-    /* Card portrait: altura fluida, escalado para a largura disponível. */
     <FitScale designWidth={w} designHeight={h} fluid>
       <Full />
     </FitScale>
   ) : (
     <>
-      {/* Desktop: a UI real, escalada para caber sem perder nitidez. */}
       <div className="hidden md:block">
         <FitScale designWidth={w} designHeight={h}>
           <Full />
         </FitScale>
       </div>
-      {/* Mobile: recorte focado, legível em telas pequenas. */}
       <div className="md:hidden">
         <Compact />
       </div>
@@ -116,17 +119,8 @@ export function PlatformShot({
 
   return (
     <div className={`relative ${glow ? "aura" : ""} ${className}`}>
-      <motion.div
-        animate={float ? { y: [0, -14, 0] } : undefined}
-        transition={
-          float
-            ? { duration: 7, repeat: Infinity, ease: "easeInOut" }
-            : undefined
-        }
-        className="relative"
-      >
-        {framed}
-      </motion.div>
+      {/* A flutuação é uma keyframe CSS: roda no compositor, fora da thread principal. */}
+      <div className={`relative ${float ? "animate-float" : ""}`}>{framed}</div>
     </div>
   );
 }

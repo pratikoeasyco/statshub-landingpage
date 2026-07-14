@@ -1,10 +1,8 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { FEATURES } from "@/lib/content";
-import { cardHover, fadeUp, viewportSoft } from "@/lib/motion";
+import { Reveal } from "../ui/Reveal";
 import { SectionHeading } from "../ui/SectionHeading";
 
+/** Server Component: nenhum JS de seção vai para o navegador. */
 export function Features() {
   return (
     <section id="recursos" className="relative py-24 sm:py-32">
@@ -21,15 +19,12 @@ export function Features() {
             const Icon = feature.icon;
 
             return (
-              <motion.article
+              <Reveal
                 key={feature.title}
-                variants={fadeUp}
-                custom={i % 4}
-                initial="hidden"
-                whileInView="show"
-                viewport={viewportSoft}
-                whileHover={cardHover}
-                className="surface surface-hairline group relative overflow-hidden p-6 transition-colors duration-300 hover:border-brand/35"
+                as="article"
+                /* Escalona a entrada dos cards de cada linha do grid. */
+                delay={(i % 4) * 80}
+                className="surface surface-hairline group relative overflow-hidden p-6 transition-[transform,border-color] duration-300 hover:scale-[1.03] hover:border-brand/35"
               >
                 {/* Brilho que segue o hover */}
                 <span className="pointer-events-none absolute -inset-px -z-10 rounded-2xl bg-gradient-to-b from-brand/[0.10] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -44,7 +39,7 @@ export function Features() {
                 <p className="mt-2 text-[13.5px] leading-relaxed text-muted">
                   {feature.description}
                 </p>
-              </motion.article>
+              </Reveal>
             );
           })}
         </div>
