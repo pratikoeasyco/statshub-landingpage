@@ -32,7 +32,7 @@ export function Logo({ className = "h-11" }: Props) {
   /* Fallback desenhado em código, para o site nunca ficar sem marca. */
   return (
     <span className="inline-flex items-center gap-2.5">
-      <span className="relative grid h-9 w-9 place-items-center rounded-[11px] bg-brand-gradient shadow-[0_8px_24px_-10px_rgba(255,106,0,.8)]">
+      <span className="relative grid h-9 w-9 place-items-center rounded-[11px] bg-brand-gradient shadow-[0_3px_10px_-4px_rgba(255,106,0,.9)]">
         <svg width="19" height="19" viewBox="0 0 20 20" fill="none" aria-hidden="true">
           <rect x="2.5" y="11" width="3.2" height="6.5" rx="1.2" fill="#fff" />
           <rect

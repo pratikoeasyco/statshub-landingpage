@@ -41,7 +41,7 @@ function Row() {
 export function Marquee() {
   return (
     <section
-      className="relative border-y border-line bg-section/60 py-5"
+      className="relative border-y border-line bg-section py-5"
       aria-label="O que a StatsHub entrega"
     >
       {/* Lista acessível para leitores de tela (o marquee é aria-hidden). */}
@@ -51,7 +51,7 @@ export function Marquee() {
         ))}
       </ul>
 
-      <div className="mask-fade-x flex overflow-hidden">
+      <div className="fade-edges relative flex overflow-hidden">
         {/* Duas cópias idênticas: a animação desloca -50% (= a largura de uma
             cópia), então o loop é perfeitamente contínuo. */}
         <div className="flex w-max shrink-0 animate-marquee-slow">

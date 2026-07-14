@@ -29,7 +29,7 @@ export function Features() {
                 {/* Brilho que segue o hover */}
                 <span className="pointer-events-none absolute -inset-px -z-10 rounded-2xl bg-gradient-to-b from-brand/[0.10] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                <span className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-[#1A1A1A] text-brand transition-all duration-300 group-hover:border-brand/40 group-hover:bg-brand/10 group-hover:shadow-[0_0_24px_-6px_rgba(255,106,0,.6)]">
+                <span className="grid h-11 w-11 place-items-center rounded-xl border border-line bg-[#1A1A1A] text-brand transition-all duration-300 group-hover:border-brand/40 group-hover:bg-brand/10 group-hover:shadow-[0_0_10px_-3px_rgba(255,106,0,.7)]">
                   <Icon size={19} />
                 </span>
 

@@ -25,7 +25,10 @@ export function Navbar() {
     <header
       className={`animate-drop fixed inset-x-0 top-0 z-50 h-[72px] transition-[background-color,border-color,backdrop-filter] duration-500 ease-smooth ${
         scrolled
-          ? "border-b border-line/80 bg-background/70 backdrop-blur-xl backdrop-saturate-150"
+          ? // Vidro fosco só no desktop. Num header FIXO, o `backdrop-filter` obriga
+            // o Safari do iPhone a re-desfocar tudo que passa atrás a cada frame da
+            // rolagem: é o pior caso possível. No toque, fundo sólido resolve.
+            "border-b border-line/80 bg-background/95 lg:bg-background/70 lg:backdrop-blur-xl lg:backdrop-saturate-150"
           : "border-b border-transparent bg-transparent"
       }`}
     >

@@ -93,7 +93,7 @@ export function Pricing() {
                 {featured && (
                   <>
                     <span className="pointer-events-none absolute inset-0 -z-10 rounded-3xl bg-gradient-to-b from-brand/[0.12] via-transparent to-transparent" />
-                    <span className="absolute -top-3.5 right-6 flex items-center gap-1.5 whitespace-nowrap rounded-full bg-brand-gradient px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.1em] text-white shadow-[0_10px_30px_-10px_rgba(255,106,0,1)]">
+                    <span className="absolute -top-3.5 right-6 flex items-center gap-1.5 whitespace-nowrap rounded-full bg-brand-gradient px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.1em] text-white shadow-[0_4px_12px_-5px_rgba(255,106,0,1)]">
                       <Star size={11} fill="currentColor" />
                       {plan.badge}
                     </span>

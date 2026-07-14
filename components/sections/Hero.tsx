@@ -22,7 +22,10 @@ export function Hero() {
     >
       {/* Fundos decorativos */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(70%_60%_at_50%_0%,#000,transparent)]" />
+        <div className="absolute inset-0 bg-grid" />
+        {/* Apaga a grade nas bordas. Antes era `mask-image`, que no Safari do
+            iOS vira uma camada de composição re-aplicada a cada frame. */}
+        <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_0%,transparent,#111111_75%)]" />
         <div className="absolute left-1/2 top-[-18%] h-[520px] w-[900px] -translate-x-1/2 animate-breathe bg-[radial-gradient(closest-side,rgba(255,106,0,0.20),transparent)]" />
         <div className="absolute -right-40 top-[22%] h-[400px] w-[400px] bg-[radial-gradient(closest-side,rgba(255,106,0,0.10),transparent)]" />
       </div>

@@ -41,14 +41,24 @@ const config: Config = {
         "3xl": "24px",
         "4xl": "32px",
       },
+      /*
+        Raios de desfoque curtos DE PROPÓSITO.
+
+        O Safari do iOS rasteriza a sombra de novo a cada frame de rolagem, e o
+        custo cresce com o raio. A `glow-lg` tinha 120px de blur: sozinha ela
+        derrubava a rolagem no iPhone de ~35 para ~28 fps. Com raios curtos a
+        sombra continua visível, mas custa uma fração para pintar.
+
+        Se for mexer aqui, meça no iPhone antes de aumentar qualquer blur.
+      */
       boxShadow: {
-        soft: "0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6)",
-        card: "0 1px 0 0 rgba(255,255,255,.03) inset, 0 20px 50px -30px rgba(0,0,0,.9)",
-        glow: "0 0 0 1px rgba(255,106,0,.25), 0 20px 60px -20px rgba(255,106,0,.35)",
+        soft: "0 1px 2px rgba(0,0,0,.4), 0 4px 10px -6px rgba(0,0,0,.6)",
+        card: "0 1px 0 0 rgba(255,255,255,.03) inset, 0 6px 16px -10px rgba(0,0,0,.9)",
+        glow: "0 0 0 1px rgba(255,106,0,.25), 0 6px 18px -8px rgba(255,106,0,.45)",
         "glow-lg":
-          "0 0 0 1px rgba(255,106,0,.20), 0 40px 120px -30px rgba(255,106,0,.45)",
-        btn: "0 8px 24px -10px rgba(255,106,0,.65)",
-        "btn-hover": "0 12px 40px -8px rgba(255,106,0,.85)",
+          "0 0 0 1px rgba(255,106,0,.20), 0 10px 28px -14px rgba(255,106,0,.55)",
+        btn: "0 4px 12px -6px rgba(255,106,0,.7)",
+        "btn-hover": "0 6px 16px -6px rgba(255,106,0,.9)",
       },
       backgroundImage: {
         "grid-fade":

@@ -128,7 +128,7 @@ export function MockRobos() {
             <ChevronDown size={11} className="ml-auto text-[#6E6E6E]" />
           </div>
         ))}
-        <span className="flex h-9 items-center gap-1.5 rounded-xl bg-brand px-4 text-[11.5px] font-bold shadow-[0_8px_20px_-10px_rgba(255,106,0,.9)]">
+        <span className="flex h-9 items-center gap-1.5 rounded-xl bg-brand px-4 text-[11.5px] font-bold shadow-[0_3px_10px_-4px_rgba(255,106,0,.9)]">
           <Plus size={13} />
           Criar robô
         </span>

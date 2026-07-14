@@ -14,7 +14,7 @@ export function SupportButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar com o suporte no Telegram"
-      className="group fixed bottom-5 right-5 z-40 flex h-11 animate-rise items-center overflow-hidden rounded-full border border-line bg-card/90 px-3 text-white shadow-[0_10px_30px_-10px_rgba(0,0,0,.8)] backdrop-blur transition-[transform,background-color,border-color] duration-300 ease-smooth hover:scale-105 hover:border-brand/50 hover:bg-brand sm:bottom-7 sm:right-7"
+      className="group fixed bottom-5 right-5 z-40 flex h-11 animate-rise items-center overflow-hidden rounded-full border border-line bg-card px-3 text-white shadow-[0_4px_12px_-5px_rgba(0,0,0,.9)] transition-[transform,background-color,border-color] duration-300 ease-smooth hover:scale-105 hover:border-brand/50 hover:bg-brand sm:bottom-7 sm:right-7"
     >
       <Headset size={18} className="shrink-0 text-brand group-hover:text-white" />
 

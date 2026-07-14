@@ -49,7 +49,7 @@ export function HowItWorks() {
               style={{ transform: `scaleX(${grown ? 1 : 0})` }}
             />
             <span
-              className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand shadow-[0_0_20px_4px_rgba(255,106,0,.7)] transition-[left] duration-[1600ms] ease-smooth"
+              className="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand shadow-[0_0_8px_1px_rgba(255,106,0,.8)] transition-[left] duration-[1600ms] ease-smooth"
               style={{ left: grown ? "100%" : "0%" }}
             />
           </div>
@@ -68,7 +68,7 @@ export function HowItWorks() {
                   {/* Marcador */}
                   <span className="absolute left-0 top-0 grid h-14 w-14 place-items-center rounded-2xl border border-line bg-card text-brand shadow-card lg:relative lg:mb-7">
                     <Icon size={20} />
-                    <i className="absolute -right-1.5 -top-1.5 grid h-6 w-6 place-items-center rounded-lg bg-brand text-[10px] font-bold not-italic text-white shadow-[0_6px_16px_-6px_rgba(255,106,0,.9)]">
+                    <i className="absolute -right-1.5 -top-1.5 grid h-6 w-6 place-items-center rounded-lg bg-brand text-[10px] font-bold not-italic text-white shadow-[0_3px_8px_-3px_rgba(255,106,0,.9)]">
                       {step.number}
                     </i>
                   </span>

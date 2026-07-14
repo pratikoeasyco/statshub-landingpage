@@ -6,11 +6,13 @@ type Size = "sm" | "md" | "lg" | "xl";
 const VARIANTS: Record<Variant, string> = {
   primary:
     "bg-brand text-white shadow-btn hover:bg-brand-hover hover:shadow-btn-hover",
+  /* Sem `backdrop-blur`: sobre 4% de branco ele não muda nada na tela, mas
+     custa uma camada de composição em cada botão da página. */
   secondary:
-    "border border-line bg-white/[0.04] text-white backdrop-blur hover:border-white/25 hover:bg-white/[0.08]",
+    "border border-line bg-white/[0.04] text-white hover:border-white/25 hover:bg-white/[0.08]",
   ghost: "text-muted hover:text-white",
   light:
-    "bg-white text-[#111111] shadow-[0_10px_40px_-12px_rgba(0,0,0,.6)] hover:bg-white/90",
+    "bg-white text-[#111111] shadow-[0_4px_14px_-6px_rgba(0,0,0,.7)] hover:bg-white/90",
 };
 
 const SIZES: Record<Size, string> = {

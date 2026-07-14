@@ -13,7 +13,8 @@ export function CtaBand() {
         {/* Gradiente laranja + textura */}
         <div className="absolute inset-0 -z-10 bg-brand-gradient" />
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_50%_0%,rgba(255,255,255,.28),transparent_55%)]" />
-        <div className="absolute inset-0 -z-10 bg-grid opacity-[0.18] mix-blend-overlay" />
+        {/* `mix-blend-mode` custa caro no Safari; opacidade sozinha resolve. */}
+        <div className="absolute inset-0 -z-10 bg-grid opacity-[0.14]" />
         <div className="absolute -bottom-24 left-1/2 -z-10 h-64 w-[70%] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(255,255,255,0.28),transparent)]" />
 
         <h2 className="mx-auto max-w-3xl text-balance text-[32px] font-bold leading-[1.1] tracking-[-0.035em] text-white sm:text-[44px] lg:text-[54px]">

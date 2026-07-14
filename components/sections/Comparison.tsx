@@ -25,7 +25,7 @@ export function Comparison() {
               Critério
             </span>
 
-            <div className="flex items-center justify-center rounded-2xl border border-brand/35 bg-brand/[0.08] px-3 py-3 shadow-[0_0_40px_-16px_rgba(255,106,0,.8)]">
+            <div className="flex items-center justify-center rounded-2xl border border-brand/35 bg-brand/[0.08] px-3 py-3 shadow-[0_0_14px_-6px_rgba(255,106,0,.9)]">
               <Logo className="h-7" />
             </div>
 
