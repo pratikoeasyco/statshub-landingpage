@@ -2393,3 +2393,379 @@ section {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ============================ Mockup de iPhone ============================= */
+/*
+  A tela de bloqueio de um iPhone com as notificacoes do robo subindo, como se
+  novos alertas chegassem o tempo todo. Substitui o print do navegador na secao
+  de robos, e aparece em miniatura sobre o print de "Jogos do dia".
+
+  Fiel as cinco regras do topo deste arquivo:
+    - tudo que anima e so transform/opacity (o feed sobe, o robo balanca, o
+      telefone flutua). Nada de left, width, sombra animada ou blur;
+    - as animacoes nascem PAUSADAS e so rodam quando a classe .live entra, o que
+      o main.js faz quando o telefone esta na tela. Fora dela, custo zero;
+    - as bordas do feed sao apagadas com gradiente sobreposto, nunca mask.
+  O relogio (hora e data) e escrito pelo main.js com a hora real, em pt-BR.
+*/
+.phone-scene {
+  position: relative;
+  width: max-content;
+  margin: 0 auto;
+}
+
+.phone {
+  --pw: 250px;
+  position: relative;
+  width: var(--pw);
+  aspect-ratio: 132 / 286;
+  padding: 9px;
+  border-radius: 44px;
+  /* Titanio laranja: gradiente diagonal com o brilho metalico de um lado. */
+  background: linear-gradient(
+    150deg,
+    #ffc79c 0%,
+    #ff8a33 24%,
+    #d9560e 56%,
+    #ff9647 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.45),
+    0 18px 38px -20px rgba(0, 0, 0, 0.9);
+}
+@media (min-width: 480px) {
+  .phone {
+    --pw: 264px;
+  }
+}
+
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 36px;
+  overflow: hidden;
+  /* Papel de parede escuro esverdeado, como o do print. */
+  background: linear-gradient(165deg, #0d4133 0%, #082019 46%, #05100c 100%);
+}
+
+.phone-island {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34%;
+  height: 20px;
+  border-radius: 999px;
+  background: #000;
+  z-index: 4;
+}
+
+.lock {
+  position: relative;
+  height: 100%;
+  padding: 44px 11px 14px;
+  display: flex;
+  flex-direction: column;
+}
+.lock-head {
+  text-align: center;
+  color: #fff;
+}
+.lock-date {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+/* O pt-BR devolve "quarta-feira, 15 de julho". O iOS mostra só a primeira
+   letra em maiúscula, e não palavra por palavra (nada de "15 De Julho"). */
+.lock-date::first-letter {
+  text-transform: uppercase;
+}
+.lock-time {
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.notif-feed {
+  position: relative;
+  flex: 1;
+  margin-top: 16px;
+  overflow: hidden;
+}
+.notif-track {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* Nasce parado; a classe .live do ancestral e que solta a animacao. */
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .phone-scene.live .notif-track {
+    animation: notif-rise 17s linear infinite;
+  }
+}
+/* Metade do trilho = um conjunto completo (ele esta duplicado). Ao chegar em
+   -50% o quadro e identico ao inicio, entao o loop e imperceptivel. */
+@keyframes notif-rise {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.notif {
+  display: flex;
+  gap: 9px;
+  padding: 9px 10px;
+  border-radius: 15px;
+  /* Cor solida translucida em vez de backdrop-filter: sobre um feed que se
+     move, desfocar o fundo a cada frame e o pior caso para o Safari. */
+  background: rgba(28, 30, 32, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+.notif-app {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  /* Azul do Telegram, que e por onde o robo avisa. */
+  background: linear-gradient(160deg, #2aabee, #229ed9);
+  color: #fff;
+}
+.notif-app .ico {
+  font-size: 16px;
+}
+.notif-body {
+  min-width: 0;
+  color: #fff;
+}
+.notif-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.notif-name {
+  font-size: 12px;
+  font-weight: 600;
+}
+.notif-when {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.notif-msg {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.notif-emoji {
+  font-weight: 400;
+}
+.notif-game {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.62);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Apaga o topo e a base do feed, para as notificacoes surgirem e sumirem. */
+.notif-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 22px;
+  pointer-events: none;
+  z-index: 2;
+}
+.notif-fade-top {
+  top: 0;
+  background: linear-gradient(180deg, #08201a, rgba(8, 32, 26, 0));
+}
+.notif-fade-bot {
+  bottom: 0;
+  background: linear-gradient(0deg, #05100c, rgba(5, 16, 12, 0));
+}
+
+/* O robozinho no canto de cima, balancando. */
+.bot-mascot {
+  position: absolute;
+  top: -20px;
+  right: -22px;
+  z-index: 6;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .phone-scene.live .bot-mascot {
+    animation: bot-bob 3.4s var(--ease) infinite;
+  }
+}
+@keyframes bot-bob {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-7deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(7deg);
+  }
+}
+.bot-face {
+  position: relative;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(160deg, #ff9647, #ff6a00);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 18px -8px rgba(255, 106, 0, 0.85);
+}
+.bot-face .ico {
+  font-size: 26px;
+}
+.bot-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
+  border: 2px solid rgba(255, 106, 0, 0.55);
+  opacity: 0;
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .phone-scene.live .bot-pulse {
+    animation: bot-pulse 3.4s var(--ease) infinite;
+  }
+}
+@keyframes bot-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+
+/* O telefone inteiro flutua de leve. */
+.phone-scene .phone {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .phone-scene.live .phone {
+    animation: phone-float 6s ease-in-out infinite;
+  }
+}
+@keyframes phone-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* -------- mini iPhone sobreposto ao print de "Jogos do dia" --------------- */
+.jogos-combo {
+  position: relative;
+}
+.phone-mini {
+  position: absolute;
+  right: -8px;
+  bottom: -16px;
+  z-index: 5;
+  transform: rotate(-7deg);
+  animation-play-state: paused;
+}
+.phone-mini .phone {
+  --pw: 132px;
+  padding: 6px;
+  border-radius: 26px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.45),
+    0 22px 40px -18px rgba(0, 0, 0, 0.95);
+}
+.phone-mini .phone-screen {
+  border-radius: 21px;
+}
+.phone-mini .phone-island {
+  top: 5px;
+  height: 9px;
+  width: 40%;
+}
+.phone-mini .lock-mini {
+  padding: 12px 7px 8px;
+}
+.phone-mini .lock-time {
+  font-size: 22px;
+  text-align: center;
+  color: #fff;
+}
+.phone-mini .notif-track {
+  margin-top: 8px;
+  animation: none;
+}
+.phone-mini .notif {
+  padding: 6px 7px;
+  border-radius: 11px;
+  gap: 6px;
+}
+.phone-mini .notif-app {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+}
+.phone-mini .notif-app .ico {
+  font-size: 11px;
+}
+.phone-mini .notif-name {
+  font-size: 9px;
+}
+.phone-mini .notif-when {
+  font-size: 8px;
+}
+.phone-mini .notif-msg {
+  font-size: 9px;
+}
+.phone-mini .notif-game {
+  font-size: 8px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .phone-mini.live {
+    animation: mini-float 7s ease-in-out infinite;
+  }
+}
+/* Mantem a inclinacao enquanto flutua (senao o translateY zeraria o rotate). */
+@keyframes mini-float {
+  0%,
+  100% {
+    transform: rotate(-7deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-7deg) translateY(-8px);
+  }
+}
+@media (max-width: 480px) {
+  .phone-mini .phone {
+    --pw: 108px;
+  }
+}

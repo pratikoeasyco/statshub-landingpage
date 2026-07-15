@@ -278,4 +278,69 @@
       }
     });
   }
+
+  /* ------------------------------------------------------------------ */
+  /*  8. Relógio real do mockup de iPhone                                */
+  /* ------------------------------------------------------------------ */
+  /*
+    A hora e a data na tela de bloqueio são as de verdade, em pt-BR, e vão se
+    atualizando sozinhas. Acordo uma vez por segundo, mas só escrevo no DOM
+    quando o texto muda de fato (ou seja, na virada do minuto): o resto das
+    batidas não custa nada.
+  */
+  var relogios = document.querySelectorAll("[data-clock]");
+
+  if (relogios.length) {
+    var tique = function () {
+      var agora = new Date();
+      var hora = agora.toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      var data = agora.toLocaleDateString("pt-BR", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+      });
+
+      for (var i = 0; i < relogios.length; i++) {
+        var el = relogios[i];
+        var novo = el.getAttribute("data-clock") === "time" ? hora : data;
+        if (el.textContent !== novo) el.textContent = novo;
+      }
+    };
+
+    tique();
+    setInterval(tique, 1000);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  9. Liga as animações do iPhone só quando ele está na tela          */
+  /* ------------------------------------------------------------------ */
+  /*
+    O feed subindo, o robô balançando e o telefone flutuando nascem pausados
+    no CSS. A classe `live` é que os solta, e ela só entra enquanto o telefone
+    está visível. Fora da tela, nenhuma animação roda: é o que evita gastar GPU
+    e bateria à toa e, no iPhone, manter a rolagem leve.
+  */
+  var cenas = document.querySelectorAll(".phone-scene, .phone-mini");
+
+  if (cenas.length) {
+    if (!temIO) {
+      for (var c = 0; c < cenas.length; c++) cenas[c].classList.add("live");
+    } else {
+      var obsFone = new IntersectionObserver(
+        function (entradas) {
+          for (var i = 0; i < entradas.length; i++) {
+            entradas[i].target.classList.toggle(
+              "live",
+              entradas[i].isIntersecting,
+            );
+          }
+        },
+        { threshold: 0.1 },
+      );
+      for (var d = 0; d < cenas.length; d++) obsFone.observe(cenas[d]);
+    }
+  }
 })();
