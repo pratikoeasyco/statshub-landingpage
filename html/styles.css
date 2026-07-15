@@ -736,20 +736,20 @@ section {
     grid-row: 1 / span 2;
     align-self: center;
     margin-top: 0;
-    margin-right: -32px;
+    /* Sem sangrar para fora da tela: assim sobra espaço à direita da imagem
+       para o celular encostar naquele canto. */
+    margin-right: 0;
   }
 }
-@media (min-width: 1280px) {
-  .hero-shot {
-    margin-right: -64px;
-  }
-}
+/* O brilho laranja da base fica ATRÁS da imagem (z-index negativo), não por
+   cima dela. */
 .hero-shot-reflex {
   position: absolute;
   left: 40px;
   right: 40px;
   bottom: -32px;
   height: 80px;
+  z-index: -1;
   background: radial-gradient(
     closest-side,
     rgba(255, 106, 0, 0.3),
@@ -2711,15 +2711,14 @@ section {
   }
 }
 @media (min-width: 1024px) {
-  /* No desktop a imagem vaza pela direita da tela, então o canto visível é o de
-     baixo à esquerda. E aí sobra espaço embaixo (a coluna da direita é só a
-     imagem), então o telefone pode descer e pender para fora do print. */
+  /* No desktop o telefone encosta na quina de baixo à direita da imagem e
+     pende para o espaço vazio abaixo dela (a coluna da direita é só o print). */
   .hero-phone {
-    right: auto;
-    left: -28px;
+    right: -24px;
+    left: auto;
     bottom: -70px;
     transform: scale(0.56) rotate(-5deg);
-    transform-origin: bottom left;
+    transform-origin: bottom right;
   }
 }
 
