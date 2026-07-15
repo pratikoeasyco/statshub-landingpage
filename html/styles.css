@@ -2684,88 +2684,56 @@ section {
   }
 }
 
-/* -------- mini iPhone sobreposto ao print de "Jogos do dia" --------------- */
-.jogos-combo {
-  position: relative;
-}
-.phone-mini {
+/* -------- o mesmo iPhone sobreposto ao print do topo (hero) --------------- */
+/*
+  Reaproveita o mockup inteiro (relogio real, feed subindo, robozinho), so que
+  encolhido e inclinado sobre o canto da imagem. Uma escala no wrapper reduz
+  tudo junto, texto incluso, sem eu ter que reescrever cada tamanho. A animacao
+  de flutuar continua vindo do .phone la dentro (transform aninhado).
+*/
+.hero-phone {
   position: absolute;
-  right: -8px;
-  bottom: -16px;
-  z-index: 5;
-  transform: rotate(-7deg);
-  animation-play-state: paused;
+  z-index: 3;
+  width: max-content;
+  /* No mobile/tablet os botões ficam logo abaixo da imagem, então aqui o
+     telefone quase não pode descer: ele encosta no canto de baixo à direita e
+     cresce para cima, sobre a imagem, sem invadir os botões. */
+  right: -6px;
+  bottom: -8px;
+  transform: scale(0.4) rotate(-5deg);
+  transform-origin: bottom right;
 }
-.phone-mini .phone {
-  --pw: 132px;
-  padding: 6px;
-  border-radius: 26px;
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.45),
-    0 22px 40px -18px rgba(0, 0, 0, 0.95);
-}
-.phone-mini .phone-screen {
-  border-radius: 21px;
-}
-.phone-mini .phone-island {
-  top: 5px;
-  height: 9px;
-  width: 40%;
-}
-.phone-mini .lock-mini {
-  padding: 12px 7px 8px;
-}
-.phone-mini .lock-time {
-  font-size: 22px;
-  text-align: center;
-  color: #fff;
-}
-.phone-mini .notif-track {
-  margin-top: 8px;
-  animation: none;
-}
-.phone-mini .notif {
-  padding: 6px 7px;
-  border-radius: 11px;
-  gap: 6px;
-}
-.phone-mini .notif-app {
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
-}
-.phone-mini .notif-app .ico {
-  font-size: 11px;
-}
-.phone-mini .notif-name {
-  font-size: 9px;
-}
-.phone-mini .notif-when {
-  font-size: 8px;
-}
-.phone-mini .notif-msg {
-  font-size: 9px;
-}
-.phone-mini .notif-game {
-  font-size: 8px;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .phone-mini.live {
-    animation: mini-float 7s ease-in-out infinite;
+@media (min-width: 640px) {
+  .hero-phone {
+    right: -10px;
+    bottom: -10px;
+    transform: scale(0.46) rotate(-5deg);
   }
 }
-/* Mantem a inclinacao enquanto flutua (senao o translateY zeraria o rotate). */
-@keyframes mini-float {
-  0%,
-  100% {
-    transform: rotate(-7deg) translateY(0);
-  }
-  50% {
-    transform: rotate(-7deg) translateY(-8px);
+@media (min-width: 1024px) {
+  /* No desktop a imagem vaza pela direita da tela, então o canto visível é o de
+     baixo à esquerda. E aí sobra espaço embaixo (a coluna da direita é só a
+     imagem), então o telefone pode descer e pender para fora do print. */
+  .hero-phone {
+    right: auto;
+    left: -28px;
+    bottom: -70px;
+    transform: scale(0.56) rotate(-5deg);
+    transform-origin: bottom left;
   }
 }
-@media (max-width: 480px) {
-  .phone-mini .phone {
-    --pw: 108px;
-  }
+
+/* A sombra laranja pedida: um halo atras da imagem do topo, dando a ela um
+   brilho quente. z-index negativo para ficar POR TRAS do print. */
+.hero-shot-aura {
+  position: absolute;
+  inset: -8% -6% -12% -6%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    58% 50% at 50% 55%,
+    rgba(255, 106, 0, 0.32),
+    rgba(255, 106, 0, 0.12) 45%,
+    transparent 72%
+  );
 }
