@@ -2700,14 +2700,14 @@ section {
      cresce para cima, sobre a imagem, sem invadir os botões. */
   right: -6px;
   bottom: -8px;
-  transform: scale(0.4) rotate(-5deg);
+  transform: scale(0.4) rotate(4deg);
   transform-origin: bottom right;
 }
 @media (min-width: 640px) {
   .hero-phone {
     right: -10px;
     bottom: -10px;
-    transform: scale(0.46) rotate(-5deg);
+    transform: scale(0.46) rotate(4deg);
   }
 }
 @media (min-width: 1024px) {
@@ -2717,7 +2717,7 @@ section {
     right: -24px;
     left: auto;
     bottom: -70px;
-    transform: scale(0.56) rotate(-5deg);
+    transform: scale(0.56) rotate(4deg);
     transform-origin: bottom right;
   }
 }
