@@ -25,6 +25,10 @@
        na hora, na fonte do sistema, e trocar sozinho quando a Inter chega. -->
   <link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-latin.woff2" crossorigin>
 
+  <!-- Rastreamento de afiliado: lê ?code, guarda em cookie e propaga nos links
+       de checkout e do app. Client-side, sem dependência. -->
+  <script src="affiliate.js" defer></script>
+
   <!-- A imagem do topo começa a baixar junto com o HTML. -->
   <link rel="preload" as="image" href="assets/shots/jogos-do-dia-900.webp"
         imagesrcset="assets/shots/jogos-do-dia-640.webp 640w, assets/shots/jogos-do-dia-900.webp 900w, assets/shots/jogos-do-dia-1400.webp 1400w"
