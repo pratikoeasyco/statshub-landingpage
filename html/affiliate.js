@@ -79,7 +79,15 @@
         var u = new URL(href, location.href);
         if (ALVOS.indexOf(u.hostname) === -1) return null; // destino que não é alvo
         if (u.searchParams.has("code")) return null; // já tem code, respeita
-        u.searchParams.set("code", code); // mantém offer e o resto intactos
+        /* code em primeiro lugar, depois os parâmetros que já existiam (offer,
+           utm_*, ...) na ordem original. Só para igualar ao formato canônico da
+           NeonPay: code=<id>&offer=...; para um parser a ordem é indiferente. */
+        var params = new URLSearchParams();
+        params.set("code", code);
+        u.searchParams.forEach(function (value, key) {
+          params.append(key, value);
+        });
+        u.search = params.toString();
         return u.href;
       } catch (e) {
         return null;
