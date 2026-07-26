@@ -26,7 +26,7 @@
 
   try {
     var COOKIE = "sh_ref";
-    var MAXAGE = 31536000; // 365 dias, em segundos
+    var MAXAGE = 15552000; // 180 dias, em segundos
     /* Só mexemos em links para estes destinos. */
     var ALVOS = ["checkout.neonpay.com.br", "app.statshub.com.br"];
     /* O code é um identificador curto de afiliado. Validar evita gravar lixo
