@@ -259,7 +259,7 @@
           <ul class="checks a-rise d4">
             <li>
               <span class="dot-check"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>
-              <span><b><span data-count="10000">0</span>+</b> análises realizadas</span>
+              <span><b><span data-count="75000">0</span>+</b> análises realizadas</span>
             </li>
             <li><span class="dot-check"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span><span>Estatísticas em tempo real</span></li>
             <li><span class="dot-check"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span><span>Dados confiáveis</span></li>
@@ -1110,7 +1110,7 @@
             <h3>Suporte</h3>
             <ul>
               <li><a href="#faq">Perguntas frequentes</a></li>
-              <li><a href="https://t.me/supguizaum" target="_blank" rel="noopener noreferrer">Falar com o suporte<svg class="ico " aria-hidden="true"><use href="#i-arrow-up-right"></use></svg></a></li>
+              <li><a href="https://t.me/supguizaum" data-suporte target="_blank" rel="noopener noreferrer">Falar com o suporte</a></li>
             </ul>
           </nav>
           <nav class="foot-col" aria-label="Legal">
@@ -1133,10 +1133,36 @@
       </div>
     </footer>
 
-  <a class="sup" href="https://t.me/supguizaum" target="_blank" rel="noopener noreferrer"
-     aria-label="Falar com o suporte no Telegram">
-    <svg class="ico " aria-hidden="true"><use href="#i-headset"></use></svg><span>Suporte</span>
-  </a>
+  <!-- Suporte: widget do Chatwoot, no lugar do botao fixo que levava para o
+       Telegram. O script e assincrono e desenha o proprio lancador no canto
+       inferior direito, por isso aqui nao ha marcacao nenhuma. -->
+  <script>
+    window.chatwootSettings = {"position":"right","type":"standard","launcherTitle":""};
+    (function(d,t) {
+      var BASE_URL="https://app.chatwoot.com";
+      var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+      g.src=BASE_URL+"/packs/js/sdk.js";
+      g.async = true;
+      s.parentNode.insertBefore(g,s);
+      g.onload=function(){
+        window.chatwootSDK.run({
+          websiteToken: 'jVWWYZTd3veqrSPRkfzi6pNi',
+          baseUrl: BASE_URL
+        })
+      }
+    })(document,"script");
+
+    /* "Falar com o suporte", no rodape, abre o widget em vez de sair do site.
+       Se o Chatwoot nao tiver carregado (bloqueador de anuncios, rede ruim,
+       script fora do ar), o clique segue o href e vai para o Telegram, como
+       antes: ninguem fica sem canal de suporte. */
+    document.addEventListener("click", function (ev) {
+      var a = ev.target && ev.target.closest ? ev.target.closest("[data-suporte]") : null;
+      if (!a || !window.$chatwoot) return;
+      ev.preventDefault();
+      window.$chatwoot.toggle("open");
+    });
+  </script>
 
   <script src="main.js" defer></script>
 </body>

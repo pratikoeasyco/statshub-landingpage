@@ -232,11 +232,48 @@ section {
   background-clip: text;
   color: transparent;
 }
+/* O degrade da marca leva um brilho que atravessa a frase da esquerda para a
+   direita, de tempos em tempos. Nao ha camada extra por cima do texto: a faixa
+   clara faz parte do proprio gradiente, que e desenhado em dobro (250%) e
+   deslizado com `background-position`. Como o texto ja recorta o fundo
+   (`background-clip: text`), o brilho aparece so dentro das letras.
+
+   A pausa entre uma passada e outra esta nos keyframes: a varredura acontece
+   nos primeiros 40% do ciclo e o resto e o intervalo parado.
+
+   As duas pontas do gradiente repetem o laranja original (#ff6a00 -> #ff9a57)
+   de proposito: a janela visivel e 40% da imagem, entao tanto o comeco quanto
+   o fim da varredura mostram exatamente o degrade que a frase sempre teve. O
+   brilho e um transiente; em repouso nada mudou. */
 .grad-brand {
-  background: linear-gradient(135deg, #ff6a00 0%, #ff9a57 100%);
+  background: linear-gradient(
+    100deg,
+    #ff6a00 0%,
+    #ff9a57 40%,
+    #ffb376 48.5%,
+    #fff3e6 50%,
+    #ffb376 51.5%,
+    #ff6a00 60%,
+    #ff9a57 100%
+  );
+  background-size: 250% 100%;
+  background-position: 100% 0;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* `linear` de proposito: o brilho tem que atravessar em velocidade
+     constante. Com o ease-out do resto do site ele dispara nos primeiros
+     0,4s e depois rasteja - o olho perde a passada. */
+  animation: brilho 5s linear 1.6s infinite;
+}
+@keyframes brilho {
+  0% {
+    background-position: 100% 0;
+  }
+  40%,
+  100% {
+    background-position: 0 0;
+  }
 }
 .grad-white {
   background: linear-gradient(180deg, #fff 45%, #cfcfcf 100%);
@@ -2496,67 +2533,6 @@ section {
 @media (min-width: 640px) {
   .foot-legal {
     text-align: right;
-  }
-}
-
-/* ------------------------------ Suporte fixo ------------------------------ */
-
-.sup {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  height: 44px;
-  padding: 0 12px;
-  overflow: hidden;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  box-shadow: 0 4px 12px -5px rgba(0, 0, 0, 0.9);
-  transition:
-    transform 0.3s var(--ease),
-    background-color 0.3s var(--ease),
-    border-color 0.3s var(--ease);
-  animation: rise 0.8s var(--ease) 1.2s backwards;
-}
-@media (min-width: 640px) {
-  .sup {
-    right: 28px;
-    bottom: 28px;
-  }
-}
-.sup .ico {
-  flex: none;
-  font-size: 18px;
-  color: var(--brand);
-  transition: color 0.3s var(--ease);
-}
-.sup span {
-  max-width: 0;
-  white-space: nowrap;
-  font-size: 14px;
-  font-weight: 600;
-  opacity: 0;
-  transition:
-    max-width 0.3s var(--ease),
-    opacity 0.3s var(--ease),
-    margin-left 0.3s var(--ease);
-}
-@media (hover: hover) {
-  .sup:hover {
-    transform: scale(1.05);
-    border-color: rgba(255, 106, 0, 0.5);
-    background: var(--brand);
-  }
-  .sup:hover .ico {
-    color: #fff;
-  }
-  .sup:hover span {
-    max-width: 90px;
-    margin-left: 8px;
-    opacity: 1;
   }
 }
 

@@ -64,34 +64,103 @@
   /* ------------------------------------------------------------------ */
   /*  3. Contador do hero                                                */
   /* ------------------------------------------------------------------ */
+  /*
+    O numero nao e fixo: ele parte de uma base e sobe sozinho, devagar.
+
+    Sao dois movimentos somados:
+
+      - a deriva do calendario, que e deterministica. A base do HTML vale para
+        a data-ancora; dali em diante somamos POR_DIA por dia corrido. Como so
+        depende do relogio, dois visitantes no mesmo dia veem o mesmo numero, e
+        quem voltar semana que vem encontra um numero maior;
+
+      - o passo da sessao, que roda enquanto a pessoa esta na pagina, em
+        intervalos sorteados e bem espacados. E o que da a sensacao de coisa
+        acontecendo agora.
+
+    O passo da sessao anda mais rapido que a deriva diaria, entao um F5 mostraria
+    um numero MENOR do que o que a pessoa acabou de ver - e nada denuncia mais
+    um contador inventado do que ele andar para tras. Por isso guardamos o ultimo
+    valor exibido e nunca mostramos menos do que ele.
+  */
   var contador = document.querySelector("[data-count]");
 
-  if (contador && temIO) {
-    new IntersectionObserver(
-      function (e, obs) {
-        if (!e[0].isIntersecting) return;
-        obs.disconnect();
+  if (contador) {
+    var ANCORA = Date.UTC(2026, 8, 3); /* 3 de setembro de 2026 */
+    var POR_DIA = 200; /* ~8 por hora: perceptivel na semana, nao no minuto */
+    var CHAVE = "sh_analises";
 
-        var alvo = +contador.getAttribute("data-count");
-        var reduzido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var valor = +contador.getAttribute("data-count");
+    var dias = (Date.now() - ANCORA) / 86400000;
+    if (dias > 0) valor += Math.floor(dias * POR_DIA);
 
-        if (reduzido) {
-          contador.textContent = alvo.toLocaleString("pt-BR");
-          return;
+    try {
+      var guardado = parseInt(localStorage.getItem(CHAVE), 10);
+      if (guardado > valor) valor = guardado;
+    } catch (e) {
+      /* modo anonimo, storage bloqueado: segue so com a deriva do calendario */
+    }
+
+    function mostrar() {
+      contador.textContent = valor.toLocaleString("pt-BR");
+      try {
+        localStorage.setItem(CHAVE, valor);
+      } catch (e) {}
+    }
+
+    /* Intervalo sorteado, nunca o mesmo: um passo a cada 12s a 50s, de 1 a 3
+       por vez. Cadencia regular entregaria o truque na hora. */
+    function agendar() {
+      setTimeout(
+        function () {
+          valor += 1 + Math.floor(Math.random() * 3);
+          mostrar();
+          agendar();
+        },
+        12000 + Math.random() * 38000,
+      );
+    }
+
+    var subiu = function () {
+      var reduzido = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduzido) {
+        mostrar();
+        agendar();
+        return;
+      }
+
+      /* A contagem de entrada continua como era: sobe do zero ate o valor de
+         agora quando o bloco aparece. So depois dela os passos comecam. */
+      var alvo = valor;
+      var inicio = performance.now();
+      var dura = 1800;
+
+      (function passo(agora) {
+        var t = Math.min((agora - inicio) / dura, 1);
+        var eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t); /* easeOutExpo */
+        contador.textContent = Math.round(eased * alvo).toLocaleString("pt-BR");
+        if (t < 1) {
+          requestAnimationFrame(passo);
+        } else {
+          mostrar();
+          agendar();
         }
+      })(inicio);
+    };
 
-        var inicio = performance.now();
-        var dura = 1800;
-
-        (function passo(agora) {
-          var t = Math.min((agora - inicio) / dura, 1);
-          var eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t); /* easeOutExpo */
-          contador.textContent = Math.round(eased * alvo).toLocaleString("pt-BR");
-          if (t < 1) requestAnimationFrame(passo);
-        })(inicio);
-      },
-      { threshold: 0.6 },
-    ).observe(contador);
+    if (temIO) {
+      new IntersectionObserver(
+        function (e, obs) {
+          if (!e[0].isIntersecting) return;
+          obs.disconnect();
+          subiu();
+        },
+        { threshold: 0.6 },
+      ).observe(contador);
+    } else {
+      subiu();
+    }
   }
 
   /* ------------------------------------------------------------------ */
