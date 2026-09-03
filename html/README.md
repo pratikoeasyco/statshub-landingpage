@@ -11,6 +11,9 @@ html/
   assets/
     fonts/        Inter variável, um arquivo, pesos 400-700
     shots/        prints em WebP (3 larguras) + JPG de reserva
+    bg/           foto do estádio do topo, já em P&B no arquivo: WebP em 3
+                  larguras + um recorte vertical para o celular + JPG de reserva
+                  (pexels.com/photo/28866439, licença Pexels)
     logo.png/.webp, favicon.png
 ```
 

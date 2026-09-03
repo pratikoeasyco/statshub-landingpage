@@ -407,12 +407,12 @@ export const PLANS = [
       mensal: {
         price: "49,00",
         note: "cobrança mensal",
-        url: "https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=066E13A",
+        url: "https://pay.kirvano.com/2e4bcbda-669c-49a3-9c9a-e561c6c3f12a",
       },
       trimestral: {
         price: "45,67",
         note: "R$ 137,00 a cada 3 meses. Economize R$ 10.",
-        url: "https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=1ZMZ5JO",
+        url: "https://pay.kirvano.com/40822412-4be6-438b-853b-554b0bff86d2",
       },
     },
     /* Os 4 primeiros recursos entram; os 4 últimos são exclusivos do Elite. */
@@ -428,12 +428,12 @@ export const PLANS = [
       mensal: {
         price: "79,00",
         note: "cobrança mensal",
-        url: "https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=ZOR9Y1P",
+        url: "https://pay.kirvano.com/67fe3b58-c52b-4f0e-b90f-47e784509145",
       },
       trimestral: {
         price: "72,33",
         note: "R$ 217,00 a cada 3 meses. Economize R$ 20.",
-        url: "https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=JIUG42D",
+        url: "https://pay.kirvano.com/cff2b184-7875-4655-8873-2b1bab59bfda",
       },
     },
     features: FEATURE_LIST.map((label) => ({ label, included: true })),

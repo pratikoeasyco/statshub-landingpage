@@ -34,7 +34,7 @@
         imagesrcset="assets/shots/jogos-do-dia-640.webp 640w, assets/shots/jogos-do-dia-900.webp 900w, assets/shots/jogos-do-dia-1400.webp 1400w"
         imagesizes="(max-width: 1023px) 92vw, 620px">
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"StatsHub","applicationCategory":"SportsApplication","operatingSystem":"Web","description":"Plataforma de análise de futebol com estatísticas completas, scanner ao vivo, robôs de alerta e IA.","offers":[{"@type":"Offer","name":"Plano PRO","price":"49.00","priceCurrency":"BRL","url":"https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=066E13A"},{"@type":"Offer","name":"Plano ELITE","price":"79.00","priceCurrency":"BRL","url":"https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=ZOR9Y1P"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"StatsHub","applicationCategory":"SportsApplication","operatingSystem":"Web","description":"Plataforma de análise de futebol com estatísticas completas, scanner ao vivo, robôs de alerta e IA.","offers":[{"@type":"Offer","name":"Plano PRO","price":"49.00","priceCurrency":"BRL","url":"https://pay.kirvano.com/2e4bcbda-669c-49a3-9c9a-e561c6c3f12a"},{"@type":"Offer","name":"Plano ELITE","price":"79.00","priceCurrency":"BRL","url":"https://pay.kirvano.com/67fe3b58-c52b-4f0e-b90f-47e784509145"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Como funciona a StatsHub?","acceptedAnswer":{"@type":"Answer","text":"Você entra pelo navegador e já vê os jogos do dia, com as estatísticas completas de cada time e de cada jogador. A partir daí, usa o que precisar: o scanner ao vivo para acompanhar a pressão da partida, os robôs para ser avisado no Telegram quando um jogo bater a sua estratégia, e o James para montar o bilhete. Tudo na mesma tela."}},{"@type":"Question","name":"Qual é a diferença entre o Pro e o Elite?","acceptedAnswer":{"@type":"Answer","text":"O Pro dá acesso às estatísticas completas de times e jogadores, ao scanner ao vivo com dados de pressão e à seleção de ligas. O Elite tem tudo isso e ainda libera a análise com IA, o James, o Zeus e a criação de robôs personalizados. Se você quer automatizar a sua estratégia, o Elite é o plano."}},{"@type":"Question","name":"Tem período de teste gratuito?","acceptedAnswer":{"@type":"Answer","text":"Tem. Você consegue conhecer a plataforma antes de assinar, para ver na prática como funcionam o scanner, as estatísticas e os alertas."}},{"@type":"Question","name":"Quando eu recebo o acesso?","acceptedAnswer":{"@type":"Answer","text":"Assim que o pagamento é confirmado, normalmente em menos de um minuto. Você recebe os dados de acesso por e-mail e já pode entrar."}},{"@type":"Question","name":"Posso cancelar quando quiser?","acceptedAnswer":{"@type":"Answer","text":"Pode. Não existe fidelidade nem multa. Você cancela a renovação pelo próprio painel e continua usando a plataforma até o fim do período que já pagou."}},{"@type":"Question","name":"Preciso instalar alguma coisa? Funciona no celular?","acceptedAnswer":{"@type":"Answer","text":"Não precisa instalar nada. A StatsHub roda direto no navegador, no computador ou no celular. Basta entrar com o seu login. Os alertas dos robôs chegam no Telegram."}},{"@type":"Question","name":"As atualizações são cobradas à parte?","acceptedAnswer":{"@type":"Answer","text":"Não. Todo recurso novo entra automaticamente na sua conta, sem custo adicional, enquanto a assinatura estiver ativa."}},{"@type":"Question","name":"Tem suporte?","acceptedAnswer":{"@type":"Answer","text":"Tem. Os dois planos contam com suporte, e o Elite tem atendimento prioritário. Você também entra no grupo da comunidade StatsHub, onde tiramos dúvidas e trocamos leituras de jogos."}}]}</script>
 </head>
 
@@ -186,7 +186,25 @@
 
     <section id="top" class="hero">
       <div class="hero-bg">
-        <div class="hero-grid"></div>
+        <!-- Estádio da Luz à noite, em preto e branco: o gramado aceso no
+             centro, o anel de refletores e a arquibancada lotada em volta.
+             A conversão para P&B (e o contraste) está gravada no arquivo, não
+             em `filter` do CSS: no iOS um filtro vira mais uma camada para
+             compor a cada quadro da rolagem.
+             Foto: pexels.com/photo/28866439 - licença Pexels (uso comercial
+             livre). Original 2560x3413 (retrato); daqui saem uma faixa
+             horizontal para o desktop e um recorte vertical para o celular. -->
+        <picture class="hero-photo">
+          <source type="image/webp" media="(max-width: 1023px)"
+                  srcset="assets/bg/torcida-vert-760.webp 760w, assets/bg/torcida-vert-1100.webp 1100w"
+                  sizes="100vw">
+          <source type="image/webp"
+                  srcset="assets/bg/torcida-1000.webp 1000w, assets/bg/torcida-1600.webp 1600w, assets/bg/torcida-2200.webp 2200w"
+                  sizes="100vw">
+          <img src="assets/bg/torcida.jpg" width="2200" height="1220" alt=""
+               aria-hidden="true" fetchpriority="high" decoding="async">
+        </picture>
+        <span class="hero-beam" aria-hidden="true"></span>
         <div class="hero-fade"></div>
         <div class="glow hero-glow-a"></div>
         <div class="glow hero-glow-b"></div>
@@ -194,6 +212,10 @@
 
       <div class="wrap hero-in">
         <div class="hero-txt">
+          <p class="hero-proof a-rise">
+            <span class="hero-stars" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico" aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico" aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico" aria-hidden="true"><use href="#i-star"></use></svg><svg class="ico" aria-hidden="true"><use href="#i-star"></use></svg></span>
+            <span><b>+27 mil usuários</b> já utilizam a StatsHub</span>
+          </p>
           <h1 class="h1 a-rise">
             <span class="grad-white">A Plataforma Definitiva para</span>
             <span class="grad-brand">Análise de Futebol</span>
@@ -245,6 +267,7 @@
           </ul>
         </div>
       </div>
+
     </section>
 
     <section class="mq" aria-label="O que a StatsHub entrega">
@@ -873,8 +896,8 @@
         <div class="plans">
           <article class="plan  rv rv-up"
             style="transition-delay:0ms"
-            data-price-mensal="49,00" data-note-mensal="cobrança mensal" data-url-mensal="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=066E13A"
-            data-price-trimestral="45,67" data-note-trimestral="R$ 137,00 a cada 3 meses. Economize R$ 10." data-url-trimestral="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=1ZMZ5JO">
+            data-price-mensal="49,00" data-note-mensal="cobrança mensal" data-url-mensal="https://pay.kirvano.com/2e4bcbda-669c-49a3-9c9a-e561c6c3f12a"
+            data-price-trimestral="45,67" data-note-trimestral="R$ 137,00 a cada 3 meses. Economize R$ 10." data-url-trimestral="https://pay.kirvano.com/40822412-4be6-438b-853b-554b0bff86d2">
 
             
 
@@ -892,7 +915,7 @@
             </div>
 
             <a class="btn btn-lg btn-ghost btn-block plan-cta"
-               href="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=066E13A" target="_blank" rel="noopener noreferrer">Assinar agora</a>
+               href="https://pay.kirvano.com/2e4bcbda-669c-49a3-9c9a-e561c6c3f12a" target="_blank" rel="noopener noreferrer">Assinar agora</a>
 
             <div class="plan-hr"></div>
             <p class="plan-inc">O que está incluído</p>
@@ -910,8 +933,8 @@
           </article>
           <article class="plan plan-top rv rv-up"
             style="transition-delay:100ms"
-            data-price-mensal="79,00" data-note-mensal="cobrança mensal" data-url-mensal="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=ZOR9Y1P"
-            data-price-trimestral="72,33" data-note-trimestral="R$ 217,00 a cada 3 meses. Economize R$ 20." data-url-trimestral="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=JIUG42D">
+            data-price-mensal="79,00" data-note-mensal="cobrança mensal" data-url-mensal="https://pay.kirvano.com/67fe3b58-c52b-4f0e-b90f-47e784509145"
+            data-price-trimestral="72,33" data-note-trimestral="R$ 217,00 a cada 3 meses. Economize R$ 20." data-url-trimestral="https://pay.kirvano.com/cff2b184-7875-4655-8873-2b1bab59bfda">
 
             <span class="plan-badge"><svg class="ico " aria-hidden="true"><use href="#i-star"></use></svg>Mais Popular</span>
 
@@ -929,7 +952,7 @@
             </div>
 
             <a class="btn btn-lg btn-primary btn-glow btn-block plan-cta"
-               href="https://checkout.neonpay.com.br/checkout/cmq45rmx818cu01q0yq1g7wrc?offer=ZOR9Y1P" target="_blank" rel="noopener noreferrer">Assinar agora</a>
+               href="https://pay.kirvano.com/67fe3b58-c52b-4f0e-b90f-47e784509145" target="_blank" rel="noopener noreferrer">Assinar agora</a>
 
             <div class="plan-hr"></div>
             <p class="plan-inc">O que está incluído</p>
