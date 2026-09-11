@@ -507,10 +507,13 @@ export const FOOTER = {
       ],
     },
     {
-      title: "Suporte",
+      title: "Links úteis",
       links: [
         { label: "Perguntas frequentes", href: "#faq" },
-        { label: "Falar com o suporte", href: SUPPORT_URL },
+        {
+          label: "Seja afiliado",
+          href: "https://docs.google.com/forms/d/e/1FAIpQLSdn5GdVMy7Qsh26EWDQUVPsnxr26qj1bcQe12IrOxCnAK2VSQ/viewform?usp=publish-editor",
+        },
       ],
     },
     {

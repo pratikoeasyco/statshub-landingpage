@@ -1106,11 +1106,11 @@
               <li><a href="https://app.statshub.com.br/login" target="_blank" rel="noopener noreferrer">Entrar<svg class="ico " aria-hidden="true"><use href="#i-arrow-up-right"></use></svg></a></li>
             </ul>
           </nav>
-          <nav class="foot-col" aria-label="Suporte">
-            <h3>Suporte</h3>
+          <nav class="foot-col" aria-label="Links úteis">
+            <h3>Links úteis</h3>
             <ul>
               <li><a href="#faq">Perguntas frequentes</a></li>
-              <li><a href="https://t.me/supguizaum" data-suporte target="_blank" rel="noopener noreferrer">Falar com o suporte</a></li>
+              <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdn5GdVMy7Qsh26EWDQUVPsnxr26qj1bcQe12IrOxCnAK2VSQ/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer">Seja afiliado</a></li>
             </ul>
           </nav>
           <nav class="foot-col" aria-label="Legal">
@@ -1151,17 +1151,6 @@
         })
       }
     })(document,"script");
-
-    /* "Falar com o suporte", no rodape, abre o widget em vez de sair do site.
-       Se o Chatwoot nao tiver carregado (bloqueador de anuncios, rede ruim,
-       script fora do ar), o clique segue o href e vai para o Telegram, como
-       antes: ninguem fica sem canal de suporte. */
-    document.addEventListener("click", function (ev) {
-      var a = ev.target && ev.target.closest ? ev.target.closest("[data-suporte]") : null;
-      if (!a || !window.$chatwoot) return;
-      ev.preventDefault();
-      window.$chatwoot.toggle("open");
-    });
   </script>
 
   <script src="main.js" defer></script>
