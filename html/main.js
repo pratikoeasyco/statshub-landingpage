@@ -249,6 +249,178 @@
   }
 
   /* ------------------------------------------------------------------ */
+  /*  4b. Cena do MacBook: a rolagem monta a cena                        */
+  /* ------------------------------------------------------------------ */
+  /*
+    A seção é uma pista alta com um palco que gruda no topo. Aqui a posição
+    da rolagem vira um progresso `p` de 0 a 1, e dele saem as fases de cada
+    peça (o CSS lê as variáveis e faz o resto - ver "Cena do MacBook" no
+    styles.css). Nada toca sozinho: parou de rolar, a cena para junto.
+
+    Os mesmos cuidados do trilho, e mais dois:
+
+      - `p` vem de `scrollY` contra uma medida feita no carregamento e no
+        resize. Nada de getBoundingClientRect a cada frame;
+      - suavização: o valor mostrado persegue o alvo em vez de pular para
+        ele. Sem isso, a roda do mouse no Windows (que anda em degraus de
+        ~100px) faz a cena andar aos trancos. É o que dá o ar de "filme".
+
+    O laço de animação só gira enquanto o valor ainda está chegando no alvo.
+    Parado, custo zero; fora da tela, nem o listener existe.
+  */
+  var cena = document.querySelector(".cine");
+
+  if (cena) {
+    var pista = cena.querySelector(".cine-pista");
+    var palco = cena.querySelector(".cine-palco");
+    var FASES = ["t1", "t2", "t3", "m", "g", "c1", "c2", "c3", "c4", "par"];
+    var pistaTopo = 0;
+    var pistaAltura = 1;
+    var alvo = 0;
+    var atual = 0;
+    var girando = false;
+    var ultimoQuadro = 0;
+
+    function faixa(v, a, b) {
+      var t = (v - a) / (b - a);
+      return t < 0 ? 0 : t > 1 ? 1 : t;
+    }
+    /* Entra e sai devagar: o notebook "assenta" em vez de frear seco. */
+    function suave(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+    /* Chega rápido e desacelera: bom para o que "pousa" na cena. */
+    function pousa(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    var desktop = matchMedia("(min-width: 1024px)");
+
+    function medirPista() {
+      var r = pista.getBoundingClientRect();
+      pistaTopo = r.top + window.scrollY;
+      pistaAltura = r.height || 1;
+      /* No celular o palco não gruda e a pista tem só a altura da cena. Sem
+         um curso extra, a montagem acabaria com o notebook ainda saindo pelo
+         pé da tela; com ele, termina com a cena inteira à vista. */
+      if (!desktop.matches) pistaAltura += window.innerHeight * 0.4;
+    }
+
+    /* 0 quando o topo da pista aparece no pé da tela; 1 quando o fim da
+       pista chega ao pé da tela, que é quando o palco se solta. */
+    function progresso() {
+      var v = (window.scrollY + window.innerHeight - pistaTopo) / pistaAltura;
+      return v < 0 ? 0 : v > 1 ? 1 : v;
+    }
+
+    function aplicar(v) {
+      var f = {
+        t1: pousa(faixa(v, 0.08, 0.3)),
+        t2: pousa(faixa(v, 0.14, 0.36)),
+        t3: pousa(faixa(v, 0.2, 0.42)),
+        m: suave(faixa(v, 0.12, 0.66)),
+        g: faixa(v, 0.46, 0.74),
+        c1: pousa(faixa(v, 0.5, 0.7)),
+        c2: pousa(faixa(v, 0.56, 0.76)),
+        c3: pousa(faixa(v, 0.62, 0.82)),
+        c4: pousa(faixa(v, 0.68, 0.88)),
+        par: v,
+      };
+      for (var i = 0; i < FASES.length; i++) {
+        palco.style.setProperty("--" + FASES[i], f[FASES[i]].toFixed(4));
+      }
+    }
+
+    function quadro(agora) {
+      /* Perseguição independente da taxa de quadros: em tela de 120Hz o
+         movimento tem a mesma duração que em 60Hz. */
+      var dt = ultimoQuadro ? Math.min(agora - ultimoQuadro, 64) : 16.7;
+      ultimoQuadro = agora;
+      var k = 1 - Math.pow(1 - 0.12, dt / 16.7);
+      var d = alvo - atual;
+
+      atual = Math.abs(d) < 0.0004 ? alvo : atual + d * k;
+      aplicar(atual);
+
+      if (atual !== alvo) {
+        requestAnimationFrame(quadro);
+      } else {
+        girando = false;
+        ultimoQuadro = 0;
+      }
+    }
+
+    function aoRolarCena() {
+      alvo = progresso();
+      if (!girando) {
+        girando = true;
+        requestAnimationFrame(quadro);
+      }
+    }
+
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || !temIO) {
+      /* Sem movimento: a pista perde a altura extra e a cena aparece
+         montada (os valores padrão do CSS já são o fim). */
+      cena.classList.add("cine-quieta");
+    } else {
+      medirPista();
+      atual = alvo = progresso();
+      aplicar(atual);
+
+      new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) {
+          medirPista();
+          window.addEventListener("scroll", aoRolarCena, { passive: true });
+          aoRolarCena();
+        } else {
+          window.removeEventListener("scroll", aoRolarCena);
+          /* Saiu rápido demais? Assenta no começo ou no fim, não no meio. */
+          aoRolarCena();
+        }
+      }).observe(pista);
+
+      window.addEventListener(
+        "resize",
+        function () {
+          medirPista();
+          aoRolarCena();
+        },
+        { passive: true },
+      );
+      /* Fontes e imagens acima podem mudar a altura da página depois do
+         primeiro cálculo. */
+      window.addEventListener("load", function () {
+        medirPista();
+        aoRolarCena();
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  4c. Recursos: holofote que segue o cursor                          */
+  /* ------------------------------------------------------------------ */
+  /*
+    Só em quem tem mouse. Um listener na grade inteira (não um por cartão),
+    e ele só escreve duas variáveis no cartão sob o cursor - o desenho do
+    brilho é CSS puro.
+  */
+  var grade = document.querySelector("#recursos .grid-4");
+
+  if (grade && matchMedia("(hover: hover)").matches) {
+    grade.addEventListener(
+      "pointermove",
+      function (ev) {
+        var card = ev.target.closest ? ev.target.closest(".card") : null;
+        if (!card) return;
+        var r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", ev.clientX - r.left + "px");
+        card.style.setProperty("--my", ev.clientY - r.top + "px");
+      },
+      { passive: true },
+    );
+  }
+
+  /* ------------------------------------------------------------------ */
   /*  5. Módulos: o print fixo troca conforme o texto rola (desktop)     */
   /* ------------------------------------------------------------------ */
   var blocos = document.querySelectorAll(".mod-block");

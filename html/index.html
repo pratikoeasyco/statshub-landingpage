@@ -30,9 +30,9 @@
   <script src="affiliate.js" defer></script>
 
   <!-- A imagem do topo começa a baixar junto com o HTML. -->
-  <link rel="preload" as="image" href="assets/shots/jogos-do-dia-900.webp"
-        imagesrcset="assets/shots/jogos-do-dia-640.webp 640w, assets/shots/jogos-do-dia-900.webp 900w, assets/shots/jogos-do-dia-1400.webp 1400w"
-        imagesizes="(max-width: 1023px) 92vw, 620px">
+  <link rel="preload" as="image" href="assets/shots/inicial-840.webp"
+        imagesrcset="assets/shots/inicial-560.webp 560w, assets/shots/inicial-840.webp 840w, assets/shots/inicial-1120.webp 1120w"
+        imagesizes="(max-width: 639px) 86vw, (max-width: 1023px) 480px, 540px">
 
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"StatsHub","applicationCategory":"SportsApplication","operatingSystem":"Web","description":"Plataforma de análise de futebol com estatísticas completas, scanner ao vivo, robôs de alerta e IA.","offers":[{"@type":"Offer","name":"Plano PRO","price":"49.00","priceCurrency":"BRL","url":"https://pay.kirvano.com/2e4bcbda-669c-49a3-9c9a-e561c6c3f12a"},{"@type":"Offer","name":"Plano ELITE","price":"79.00","priceCurrency":"BRL","url":"https://pay.kirvano.com/67fe3b58-c52b-4f0e-b90f-47e784509145"}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Como funciona a StatsHub?","acceptedAnswer":{"@type":"Answer","text":"Você entra pelo navegador e já vê os jogos do dia, com as estatísticas completas de cada time e de cada jogador. A partir daí, usa o que precisar: o scanner ao vivo para acompanhar a pressão da partida, os robôs para ser avisado no Telegram quando um jogo bater a sua estratégia, e o James para montar o bilhete. Tudo na mesma tela."}},{"@type":"Question","name":"Qual é a diferença entre o Pro e o Elite?","acceptedAnswer":{"@type":"Answer","text":"O Pro dá acesso às estatísticas completas de times e jogadores, ao scanner ao vivo com dados de pressão e à seleção de ligas. O Elite tem tudo isso e ainda libera a análise com IA, o James, o Zeus e a criação de robôs personalizados. Se você quer automatizar a sua estratégia, o Elite é o plano."}},{"@type":"Question","name":"Tem período de teste gratuito?","acceptedAnswer":{"@type":"Answer","text":"Tem. Você consegue conhecer a plataforma antes de assinar, para ver na prática como funcionam o scanner, as estatísticas e os alertas."}},{"@type":"Question","name":"Quando eu recebo o acesso?","acceptedAnswer":{"@type":"Answer","text":"Assim que o pagamento é confirmado, normalmente em menos de um minuto. Você recebe os dados de acesso por e-mail e já pode entrar."}},{"@type":"Question","name":"Posso cancelar quando quiser?","acceptedAnswer":{"@type":"Answer","text":"Pode. Não existe fidelidade nem multa. Você cancela a renovação pelo próprio painel e continua usando a plataforma até o fim do período que já pagou."}},{"@type":"Question","name":"Preciso instalar alguma coisa? Funciona no celular?","acceptedAnswer":{"@type":"Answer","text":"Não precisa instalar nada. A StatsHub roda direto no navegador, no computador ou no celular. Basta entrar com o seu login. Os alertas dos robôs chegam no Telegram."}},{"@type":"Question","name":"As atualizações são cobradas à parte?","acceptedAnswer":{"@type":"Answer","text":"Não. Todo recurso novo entra automaticamente na sua conta, sem custo adicional, enquanto a assinatura estiver ativa."}},{"@type":"Question","name":"Tem suporte?","acceptedAnswer":{"@type":"Answer","text":"Tem. Os dois planos contam com suporte, e o Elite tem atendimento prioritário. Você também entra no grupo da comunidade StatsHub, onde tiramos dúvidas e trocamos leituras de jogos."}}]}</script>
@@ -152,7 +152,9 @@
   <path d="M7 17 17 7" /></symbol><symbol id="i-headset" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
 
   <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z" />
-  <path d="M21 16v2a4 4 0 0 1-4 4h-5" /></symbol></svg>
+  <path d="M21 16v2a4 4 0 0 1-4 4h-5" /></symbol><symbol id="i-wallet" viewBox="0 0 24 24"><!-- @license lucide-static v1.24.0 - ISC -->
+  <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+  <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" /></symbol></svg>
 
   <!-- Sentinela: quando ele sai da tela, a navbar ganha fundo.
        Custa zero, diferente de um listener de scroll. -->
@@ -227,23 +229,17 @@
           </p>
         </div>
 
-        <div class="hero-shot a-pop d2">
-          <div class="float"><div class="shot ">
-            <div class="frame">
-              <div class="frame-bar">
-                <span class="frame-dots"><i></i><i></i><i></i></span>
-                <span class="frame-url">app.statshub.com.br/jogos</span>
-              </div>
-              <picture>
-              <source type="image/webp" srcset="assets/shots/jogos-do-dia-640.webp 640w, assets/shots/jogos-do-dia-900.webp 900w, assets/shots/jogos-do-dia-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
-              <img src="assets/shots/jogos-do-dia.jpg" width="2262" height="1266"
-                   alt="StatsHub: jogos-do-dia" fetchpriority="high">
+        <!-- App no iPhone com os alertas em volta. PNG com fundo transparente
+             (webp com alfa), sem moldura: a imagem ja traz o aparelho. -->
+        <div class="hero-shot hero-shot-app a-pop d2">
+          <div class="float">
+            <picture>
+              <source type="image/webp" srcset="assets/shots/inicial-560.webp 560w, assets/shots/inicial-840.webp 840w, assets/shots/inicial-1120.webp 1120w" sizes="(max-width: 639px) 86vw, (max-width: 1023px) 480px, 540px">
+              <img class="hero-app" src="assets/shots/inicial-840.webp" width="1215" height="1295"
+                   alt="App da StatsHub no iPhone, com alertas de green, over e escanteios chegando" fetchpriority="high" decoding="async">
             </picture>
-            </div>
-          </div></div>
+          </div>
           <div class="hero-shot-aura" aria-hidden="true"></div>
-          <div class="hero-shot-reflex"></div>
-          <div class="hero-phone"><div class="phone-scene rv rv-up" role="img" aria-label="Notificações do robô no Telegram"><span class="bot-mascot" aria-hidden="true"><span class="bot-pulse"></span><span class="bot-face"><svg class="ico" aria-hidden="true"><use href="#i-bot"></use></svg></span></span><div class="phone"><span class="phone-island" aria-hidden="true"></span><div class="phone-screen"><div class="lock"><div class="lock-head"><div class="lock-date" data-clock="date">quarta-feira, 15 de julho</div><div class="lock-time" data-clock="time">18:58</div></div><div class="notif-feed"><div class="notif-track"><article class="notif"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🚩</span> Pressão em escanteios</div><div class="notif-game">Sevilla 0 - 0 Betis · 38'</div></div></article><article class="notif"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">⚡</span> Pressão no fim de jogo</div><div class="notif-game">Norwich 1 - 1 Leeds · 71'</div></div></article><article class="notif"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🎯</span> Rompimento de xG</div><div class="notif-game">Porto 0 - 1 Braga · 85'</div></div></article><article class="notif"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🔥</span> Over 1.5 encaminhado</div><div class="notif-game">Lyon 1 - 0 Nice · 62'</div></div></article><article class="notif"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">📈</span> Domínio da casa</div><div class="notif-game">Palmeiras 0 - 0 Santos · 27'</div></div></article><article class="notif" aria-hidden="true"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🚩</span> Pressão em escanteios</div><div class="notif-game">Sevilla 0 - 0 Betis · 38'</div></div></article><article class="notif" aria-hidden="true"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">⚡</span> Pressão no fim de jogo</div><div class="notif-game">Norwich 1 - 1 Leeds · 71'</div></div></article><article class="notif" aria-hidden="true"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🎯</span> Rompimento de xG</div><div class="notif-game">Porto 0 - 1 Braga · 85'</div></div></article><article class="notif" aria-hidden="true"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🔥</span> Over 1.5 encaminhado</div><div class="notif-game">Lyon 1 - 0 Nice · 62'</div></div></article><article class="notif" aria-hidden="true"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">📈</span> Domínio da casa</div><div class="notif-game">Palmeiras 0 - 0 Santos · 27'</div></div></article></div><span class="notif-fade notif-fade-top" aria-hidden="true"></span><span class="notif-fade notif-fade-bot" aria-hidden="true"></span></div></div></div></div></div></div>
         </div>
 
         <div class="hero-act">
@@ -393,12 +389,111 @@
       </div>
     </section>
 
+    <!--
+      Cena do MacBook, controlada pela rolagem. A secao e alta (a "pista") e o
+      palco dentro dela gruda no topo enquanto a pista passa: o quanto ja se
+      rolou vira um numero de 0 a 1 (main.js, bloco 5) e cada peca da cena le
+      a sua fase dele. Nada toca sozinho - parou de rolar, a cena para junto.
+      Sem JS, a cena aparece montada (os valores padrao do CSS sao o fim).
+    -->
+    <section id="cena" class="cine" aria-labelledby="cena-titulo">
+      <div class="cine-pista">
+        <div class="cine-palco">
+          <div class="cine-fundo" aria-hidden="true">
+            <!-- Luz de dois refletores, vindo dos cantos de cima. -->
+            <div class="cine-refletor cine-refletor-e"></div>
+            <div class="cine-refletor cine-refletor-d"></div>
+            <!-- Gramado visto da lateral, como na transmissao: faixas de corte
+                 da grama e as marcacoes oficiais (105 x 68 m, em decimetros).
+                 O grande circulo fica embaixo do notebook. -->
+            <div class="cine-campo">
+              <svg viewBox="0 0 1050 680" preserveAspectRatio="none">
+                <g class="cine-grama"><rect x="0" y="0" width="105" height="680"/><rect x="210" y="0" width="105" height="680"/><rect x="420" y="0" width="105" height="680"/><rect x="630" y="0" width="105" height="680"/><rect x="840" y="0" width="105" height="680"/></g>
+                <g class="cine-linhas" fill="none">
+                  <rect x="2" y="2" width="1046" height="676"/>
+                  <line x1="525" y1="0" x2="525" y2="680"/>
+                  <circle cx="525" cy="340" r="91.5"/>
+                  <rect x="2" y="138.5" width="163" height="403"/>
+                  <rect x="885" y="138.5" width="163" height="403"/>
+                  <rect x="2" y="248.5" width="53" height="183"/>
+                  <rect x="995" y="248.5" width="53" height="183"/>
+                  <path d="M165 266.9 A91.5 91.5 0 0 1 165 413.1"/>
+                  <path d="M885 266.9 A91.5 91.5 0 0 0 885 413.1"/>
+                </g>
+                <g class="cine-marcas">
+                  <circle cx="525" cy="340" r="4"/>
+                  <circle cx="110" cy="340" r="3.5"/>
+                  <circle cx="940" cy="340" r="3.5"/>
+                </g>
+              </svg>
+            </div>
+            <div class="cine-luz"></div>
+          </div>
+
+          <div class="cine-head">
+            <h2 id="cena-titulo" class="h2 cine-h2">
+              <span class="cine-linha"><span class="grad-white">O jogo inteiro, lido</span></span>
+              <span class="cine-linha"><span class="grad-brand-static">antes de você entrar</span></span>
+            </h2>
+            <p class="lead cine-lead">Odds, probabilidades, pressão ao vivo e o histórico de cada time, organizados na mesma tela.</p>
+          </div>
+
+          <div class="cine-cena">
+            <div class="mac">
+              <div class="mac-tampa">
+                <div class="mac-borda">
+                  <span class="mac-camera" aria-hidden="true"></span>
+                  <div class="mac-tela">
+                    <div class="mac-barra" aria-hidden="true">
+                      <span class="frame-dots"><i></i><i></i><i></i></span>
+                      <span class="frame-url">app.statshub.com.br/jogos</span>
+                    </div>
+                    <picture>
+                      <source type="image/webp" srcset="assets/shots/jogos-do-dia-900.webp 900w, assets/shots/jogos-do-dia-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 960px">
+                      <img src="assets/shots/jogos-do-dia.jpg" width="2262" height="1266"
+                           alt="Tela de Jogos do Dia da StatsHub aberta num MacBook" loading="lazy" decoding="async">
+                    </picture>
+                    <span class="mac-apaga" aria-hidden="true"></span>
+                    <span class="mac-reflexo" aria-hidden="true"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="mac-base" aria-hidden="true"><span class="mac-vinco"></span></div>
+              <div class="mac-sombra" aria-hidden="true"></div>
+            </div>
+
+            <!-- Cartoes que flutuam em volta. Cada um entra numa fase propria e
+                 anda numa velocidade diferente depois: e isso que da a
+                 profundidade (parallax). Decorativos para leitor de tela. -->
+            <div class="chip chip-1" aria-hidden="true">
+              <span class="chip-ico"><svg class="ico" aria-hidden="true"><use href="#i-activity"></use></svg></span>
+              <div><b>Pressão ao vivo</b><small>Casa domina · 78%</small>
+                <span class="chip-barras"><i style="--h:.35"></i><i style="--h:.5"></i><i style="--h:.42"></i><i style="--h:.7"></i><i style="--h:.62"></i><i style="--h:.9"></i><i style="--h:.78"></i></span>
+              </div>
+            </div>
+            <div class="chip chip-2" aria-hidden="true">
+              <span class="chip-ico"><svg class="ico" aria-hidden="true"><use href="#i-target"></use></svg></span>
+              <div><b>+0.5 chutes no gol</b><small>Probabilidade <em>82%</em> · odd 1.57</small></div>
+            </div>
+            <div class="chip chip-3" aria-hidden="true">
+              <span class="chip-ico chip-ico-tg"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span>
+              <div><b>🚩 Pressão em escanteios</b><small>Sevilla 0 - 0 Betis · 38'</small></div>
+            </div>
+            <div class="chip chip-4" aria-hidden="true">
+              <span class="chip-ico chip-ico-ok"><svg class="ico" aria-hidden="true"><use href="#i-wallet"></use></svg></span>
+              <div><b>Banca <em>+6,2%</em></b><small>ROI de 11,4% no mês</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="recursos" class="pad">
       <div class="wrap">
         <div class="head">
           <h2 class="h2 rv rv-up">Tudo que você precisa em uma única plataforma</h2>
           <p class="lead rv rv-up" style="transition-delay:80ms">
-            Estatísticas, scanner ao vivo, robôs de alerta e montagem de bilhete.
+            Estatísticas, scanner ao vivo, robôs de alerta, props e gestão de banca.
             Você abre a StatsHub e já tem tudo pronto para analisar.
           </p>
         </div>
@@ -436,13 +531,13 @@
           </article>
           <article class="card rv rv-up" style="transition-delay:160ms">
             <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-target"></use></svg></span>
-            <h3>Indicadores de Valor</h3>
-            <p>Encontre odds interessantes comparando a probabilidade real com o preço oferecido pelo mercado.</p>
+            <h3>Props</h3>
+            <p>Linhas de jogadores e times ranqueadas por probabilidade, com odd, vantagem e o histórico recente de cada um.</p>
           </article>
           <article class="card rv rv-up" style="transition-delay:240ms">
-            <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-layout-dashboard"></use></svg></span>
-            <h3>Painel Inteligente</h3>
-            <p>Jogos, estatísticas, scanner e bilhete na mesma tela, sem ficar trocando de aba.</p>
+            <span class="card-ico"><svg class="ico " aria-hidden="true"><use href="#i-wallet"></use></svg></span>
+            <h3>Gestão de Banca</h3>
+            <p>Registre suas entradas e acompanhe lucro, ROI e a evolução da banca, e descubra o que realmente dá dinheiro.</p>
           </article>
         </div>
       </div>
@@ -571,6 +666,54 @@
             </div>
             <div class="mod-block" data-mod="3">
               <div class="rv rv-right">
+                <h3 class="h3">Props: as linhas de jogador com mais chance do dia</h3>
+                <p class="lead">Chutes, chutes no gol e outras linhas de jogadores e times, ranqueadas por probabilidade. Veja a odd, a vantagem sobre a casa e o histórico recente antes de entrar.</p>
+                <ul class="bullets">
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Probabilidade e vantagem calculadas para cada linha</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Histórico dos últimos 5 ou 10 jogos de cada jogador</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Filtros por jogadores, times, confrontos e data</li>
+                </ul>
+              </div>
+              <div class="mod-shot-inline"><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/props</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/props-640.webp 640w, assets/shots/props-900.webp 900w, assets/shots/props-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/props.jpg" width="1636" height="843"
+                   alt="StatsHub: props" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+            </div>
+            <div class="mod-block" data-mod="4">
+              <div class="rv rv-right">
+                <h3 class="h3">Gestão de banca para saber o que dá dinheiro</h3>
+                <p class="lead">Registre suas entradas e acompanhe lucro, ROI e a evolução da banca dia após dia. Descubra quais métodos, campeonatos e faixas de odd estão dando resultado.</p>
+                <ul class="bullets">
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Lucro, ROI, unidades e taxa de acerto no período</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Gráfico da evolução da banca dia a dia</li>
+                  <li><span class="bul-ico"><svg class="ico " aria-hidden="true"><use href="#i-check"></use></svg></span>Desempenho por método, campeonato e faixa de odd</li>
+                </ul>
+              </div>
+              <div class="mod-shot-inline"><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/gestao</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/gestao-640.webp 640w, assets/shots/gestao-900.webp 900w, assets/shots/gestao-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/gestao.jpg" width="1637" height="880"
+                   alt="StatsHub: gestao" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+            </div>
+            <div class="mod-block" data-mod="5">
+              <div class="rv rv-right">
                 <h3 class="h3">James, o montador inteligente de bilhetes</h3>
                 <p class="lead">Escolha o tipo de bilhete, a faixa de odd e os mercados. O James lê os cenários do dia e monta a combinação com o melhor equilíbrio.</p>
                 <ul class="bullets">
@@ -593,7 +736,7 @@
             </div>
           </div></div>
             </div>
-            <div class="mod-block" data-mod="4">
+            <div class="mod-block" data-mod="6">
               <div class="rv rv-right">
                 <h3 class="h3">Zeus encontra entradas prontas para você</h3>
                 <p class="lead">Da entrada mais segura à alavancagem, o Zeus recomenda o caminho de acordo com o seu perfil, o seu stake médio e a sua meta.</p>
@@ -621,7 +764,7 @@
 
           <div class="mods-media">
             <div class="mods-dots">
-              <i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i>
+              <i class="on"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i>
             </div>
             <div class="mods-stack">
               <div class="on"><div class="shot ">
@@ -645,6 +788,32 @@
             </picture></div>
           </div></div>
               <div class=""><div class="phone-scene rv rv-up" role="img" aria-label="Notificações do robô no Telegram"><span class="bot-mascot" aria-hidden="true"><span class="bot-pulse"></span><span class="bot-face"><svg class="ico" aria-hidden="true"><use href="#i-bot"></use></svg></span></span><div class="phone"><span class="phone-island" aria-hidden="true"></span><div class="phone-screen"><div class="lock"><div class="lock-head"><div class="lock-date" data-clock="date">quarta-feira, 15 de julho</div><div class="lock-time" data-clock="time">18:58</div></div><div class="notif-feed"><div class="notif-track"><article class="notif"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🚩</span> Pressão em escanteios</div><div class="notif-game">Sevilla 0 - 0 Betis · 38'</div></div></article><article class="notif"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">⚡</span> Pressão no fim de jogo</div><div class="notif-game">Norwich 1 - 1 Leeds · 71'</div></div></article><article class="notif"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🎯</span> Rompimento de xG</div><div class="notif-game">Porto 0 - 1 Braga · 85'</div></div></article><article class="notif"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🔥</span> Over 1.5 encaminhado</div><div class="notif-game">Lyon 1 - 0 Nice · 62'</div></div></article><article class="notif"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">📈</span> Domínio da casa</div><div class="notif-game">Palmeiras 0 - 0 Santos · 27'</div></div></article><article class="notif" aria-hidden="true"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🚩</span> Pressão em escanteios</div><div class="notif-game">Sevilla 0 - 0 Betis · 38'</div></div></article><article class="notif" aria-hidden="true"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">⚡</span> Pressão no fim de jogo</div><div class="notif-game">Norwich 1 - 1 Leeds · 71'</div></div></article><article class="notif" aria-hidden="true"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🎯</span> Rompimento de xG</div><div class="notif-game">Porto 0 - 1 Braga · 85'</div></div></article><article class="notif" aria-hidden="true"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">🔥</span> Over 1.5 encaminhado</div><div class="notif-game">Lyon 1 - 0 Nice · 62'</div></div></article><article class="notif" aria-hidden="true"><span class="notif-app"><svg class="ico" aria-hidden="true"><use href="#i-send"></use></svg></span><div class="notif-body"><div class="notif-row"><b class="notif-name">StatsHub</b><span class="notif-when">agora</span></div><div class="notif-msg"><span class="notif-emoji">📈</span> Domínio da casa</div><div class="notif-game">Palmeiras 0 - 0 Santos · 27'</div></div></article></div><span class="notif-fade notif-fade-top" aria-hidden="true"></span><span class="notif-fade notif-fade-bot" aria-hidden="true"></span></div></div></div></div></div></div>
+              <div class=""><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/props</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/props-640.webp 640w, assets/shots/props-900.webp 900w, assets/shots/props-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/props.jpg" width="1636" height="843"
+                   alt="StatsHub: props" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
+              <div class=""><div class="shot ">
+            <div class="frame">
+              <div class="frame-bar">
+                <span class="frame-dots"><i></i><i></i><i></i></span>
+                <span class="frame-url">app.statshub.com.br/gestao</span>
+              </div>
+              <picture>
+              <source type="image/webp" srcset="assets/shots/gestao-640.webp 640w, assets/shots/gestao-900.webp 900w, assets/shots/gestao-1400.webp 1400w" sizes="(max-width: 1023px) 92vw, 620px">
+              <img src="assets/shots/gestao.jpg" width="1637" height="880"
+                   alt="StatsHub: gestao" loading="lazy" decoding="async">
+            </picture>
+            </div>
+          </div></div>
               <div class=""><div class="shot ">
             <div class="frame">
               <div class="frame-bar">
