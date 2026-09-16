@@ -449,7 +449,7 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /*  6. Planos: toggle mensal / trimestral / anual                      */
+  /*  6. Planos: toggle mensal / anual                                   */
   /* ------------------------------------------------------------------ */
   var toggle = document.querySelector(".toggle");
 

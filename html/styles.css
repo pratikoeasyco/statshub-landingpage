@@ -639,6 +639,24 @@ section {
   padding: 0 12px;
   font-size: 13px;
 }
+/* "Comecar Agora" por extenso nao cabe nos celulares mais estreitos ao lado do
+   "Entrar" e do logo: ali os dois botoes encolhem um pouco. */
+@media (max-width: 409px) {
+  .nav-cta {
+    gap: 6px;
+  }
+  .nav-cta .btn {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+}
+/* Abaixo de 340px nem assim cabe. Ali o "Entrar" sai do topo - continua no
+   rodape e no primeiro bloco - e fica so o botao que leva a conversao. */
+@media (max-width: 339px) {
+  .nav-cta .btn-ghost {
+    display: none;
+  }
+}
 @media (min-width: 640px) {
   .nav-cta .btn {
     height: 44px;
@@ -655,21 +673,6 @@ section {
     display: block;
   }
 }
-.only-sm {
-  display: inline;
-}
-.only-lg {
-  display: none;
-}
-@media (min-width: 640px) {
-  .only-sm {
-    display: none;
-  }
-  .only-lg {
-    display: inline;
-  }
-}
-
 /* ---------------------------------- Hero ---------------------------------- */
 
 .hero {
@@ -2116,7 +2119,7 @@ section {
 .toggle {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr;
   padding: 4px;
   border-radius: 999px;
   border: 1px solid var(--line);
@@ -2128,17 +2131,14 @@ section {
   top: 4px;
   bottom: 4px;
   left: 4px;
-  width: calc((100% - 8px) / 3);
+  width: calc(50% - 4px);
   border-radius: 999px;
   background: var(--brand);
   box-shadow: 0 4px 12px -6px rgba(255, 106, 0, 0.7);
   transition: transform 0.3s var(--ease);
 }
-.toggle[data-period="trimestral"] .toggle-pill {
-  transform: translateX(100%);
-}
 .toggle[data-period="anual"] .toggle-pill {
-  transform: translateX(200%);
+  transform: translateX(100%);
 }
 .toggle button {
   position: relative;
@@ -2157,17 +2157,6 @@ section {
 }
 .toggle button[aria-selected="true"] {
   color: #fff;
-}
-/* Tres periodos nao cabem lado a lado num celular estreito com os selos:
-   abaixo de 480px eles saem e ficam so os nomes. */
-@media (max-width: 479px) {
-  .toggle button {
-    padding: 10px 8px;
-    font-size: 13px;
-  }
-  .toggle-tag {
-    display: none;
-  }
 }
 .toggle-tag {
   padding: 2px 6px;

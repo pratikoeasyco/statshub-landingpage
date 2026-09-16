@@ -247,7 +247,7 @@ export const STEPS = [
     number: "01",
     title: "Escolha seu plano",
     description:
-      "Pro ou Elite, no mensal, trimestral ou anual. Sem burocracia e sem fidelidade.",
+      "Pro ou Elite, no mensal ou no anual. Sem burocracia e sem fidelidade.",
     icon: Ticket,
   },
   {
@@ -371,13 +371,12 @@ export const TESTIMONIALS = [
 /*  Planos                                                                     */
 /* -------------------------------------------------------------------------- */
 
-export type BillingPeriod = "mensal" | "trimestral" | "anual";
+export type BillingPeriod = "mensal" | "anual";
 
 export const BILLING = {
   label: "Escolha o período do plano",
   periods: [
     { id: "mensal" as const, label: "Mensal", discount: null },
-    { id: "trimestral" as const, label: "Trimestral", discount: "Economize" },
     { id: "anual" as const, label: "Anual", discount: "Melhor preço" },
   ],
 } as const;
@@ -413,11 +412,6 @@ export const PLANS = [
         note: "cobrança mensal",
         url: "https://pay.kirvano.com/2e4bcbda-669c-49a3-9c9a-e561c6c3f12a",
       },
-      trimestral: {
-        price: "45,67",
-        note: "R$ 137,00 a cada 3 meses. Economize R$ 10.",
-        url: "https://pay.kirvano.com/40822412-4be6-438b-853b-554b0bff86d2",
-      },
       anual: {
         price: "41,42",
         note: "R$ 497,00 por ano. Economize R$ 91.",
@@ -438,11 +432,6 @@ export const PLANS = [
         price: "79,00",
         note: "cobrança mensal",
         url: "https://pay.kirvano.com/67fe3b58-c52b-4f0e-b90f-47e784509145",
-      },
-      trimestral: {
-        price: "72,33",
-        note: "R$ 217,00 a cada 3 meses. Economize R$ 20.",
-        url: "https://pay.kirvano.com/cff2b184-7875-4655-8873-2b1bab59bfda",
       },
       anual: {
         price: "58,08",
