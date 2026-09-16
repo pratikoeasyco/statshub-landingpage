@@ -247,7 +247,7 @@ export const STEPS = [
     number: "01",
     title: "Escolha seu plano",
     description:
-      "Pro ou Elite, no mensal ou no trimestral. Sem burocracia e sem fidelidade.",
+      "Pro ou Elite, no mensal, trimestral ou anual. Sem burocracia e sem fidelidade.",
     icon: Ticket,
   },
   {
@@ -371,13 +371,14 @@ export const TESTIMONIALS = [
 /*  Planos                                                                     */
 /* -------------------------------------------------------------------------- */
 
-export type BillingPeriod = "mensal" | "trimestral";
+export type BillingPeriod = "mensal" | "trimestral" | "anual";
 
 export const BILLING = {
   label: "Escolha o período do plano",
   periods: [
     { id: "mensal" as const, label: "Mensal", discount: null },
     { id: "trimestral" as const, label: "Trimestral", discount: "Economize" },
+    { id: "anual" as const, label: "Anual", discount: "Melhor preço" },
   ],
 } as const;
 
@@ -390,6 +391,9 @@ const FEATURE_LIST = [
   "Estatísticas completas dos jogadores",
   "Scanner ao vivo com dados de pressão",
   "Seleção de ligas",
+  "As melhores linhas de cada jogo",
+  "Raio-X, pontos fortes e fracos de cada equipe",
+  "Props, melhores entradas de valor em jogadores, times e confrontos",
   "Análise com I.A",
   "James, criador de bilhetes inteligentes",
   "Zeus, entradas prontas com sua personalização",
@@ -414,9 +418,14 @@ export const PLANS = [
         note: "R$ 137,00 a cada 3 meses. Economize R$ 10.",
         url: "https://pay.kirvano.com/40822412-4be6-438b-853b-554b0bff86d2",
       },
+      anual: {
+        price: "41,42",
+        note: "R$ 497,00 por ano. Economize R$ 91.",
+        url: "https://pay.kirvano.com/c7e71c06-8fb5-42b4-8663-aacb04608acb",
+      },
     },
-    /* Os 4 primeiros recursos entram; os 4 últimos são exclusivos do Elite. */
-    features: FEATURE_LIST.map((label, i) => ({ label, included: i < 4 })),
+    /* Os 5 primeiros recursos entram; do Raio-X em diante é só Elite. */
+    features: FEATURE_LIST.map((label, i) => ({ label, included: i < 5 })),
   },
   {
     id: "elite",
@@ -434,6 +443,11 @@ export const PLANS = [
         price: "72,33",
         note: "R$ 217,00 a cada 3 meses. Economize R$ 20.",
         url: "https://pay.kirvano.com/cff2b184-7875-4655-8873-2b1bab59bfda",
+      },
+      anual: {
+        price: "58,08",
+        note: "R$ 697,00 por ano. Economize R$ 251.",
+        url: "https://pay.kirvano.com/48a82025-d673-4a9b-b3c9-3724197f9531",
       },
     },
     features: FEATURE_LIST.map((label) => ({ label, included: true })),

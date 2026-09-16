@@ -2116,7 +2116,7 @@ section {
 .toggle {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   padding: 4px;
   border-radius: 999px;
   border: 1px solid var(--line);
@@ -2128,7 +2128,7 @@ section {
   top: 4px;
   bottom: 4px;
   left: 4px;
-  width: calc(50% - 4px);
+  width: calc((100% - 8px) / 3);
   border-radius: 999px;
   background: var(--brand);
   box-shadow: 0 4px 12px -6px rgba(255, 106, 0, 0.7);
@@ -2136,6 +2136,9 @@ section {
 }
 .toggle[data-period="trimestral"] .toggle-pill {
   transform: translateX(100%);
+}
+.toggle[data-period="anual"] .toggle-pill {
+  transform: translateX(200%);
 }
 .toggle button {
   position: relative;
@@ -2154,6 +2157,17 @@ section {
 }
 .toggle button[aria-selected="true"] {
   color: #fff;
+}
+/* Tres periodos nao cabem lado a lado num celular estreito com os selos:
+   abaixo de 480px eles saem e ficam so os nomes. */
+@media (max-width: 479px) {
+  .toggle button {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+  .toggle-tag {
+    display: none;
+  }
 }
 .toggle-tag {
   padding: 2px 6px;
